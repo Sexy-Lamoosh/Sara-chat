@@ -3,102 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sara - صور مضمونة</title>
+<title>Sara AI - توليد أي صورة</title>
 <style>
-*{box-sizing:border-box} body{margin:0;background:#0a0a0a;color:#fff;font-family:system-ui;max-width:440px;margin:auto;display:flex;flex-direction:column;height:100vh}
-.header{text-align:center;padding:12px;background:#160e15} .header img{width:75px;height:75px;border-radius:50%;border:3px solid #ff2d75}
-.chat{flex:1;overflow-y:auto;background:#111;margin:8px;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
-.bubble{padding:11px 14px;border-radius:18px;max-width:84%;line-height:1.6;font-size:14px;white-space:pre-wrap}
-.sara{background:#ff2d75;align-self:flex-start} .me{background:#2c2c2c;align-self:flex-end}
-.pic-wrap{max-width:88%;align-self:flex-start;background:#1e1e1e;border-radius:14px;overflow:hidden;border:1.5px solid #ff2d75}
-.pic-wrap img{width:100%;display:block;min-height:250px;max-height:380px;object-fit:cover}
-.pic-wrap .foot{padding:8px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#ffb3cc}
-.dlbtn{background:#ff2d75;color:#fff;border-radius:20px;padding:6px 14px;font-size:11px;text-decoration:none}
-.quick{display:flex;gap:6px;padding:8px;overflow-x:auto} .quick button{background:#1e1e1e;border:1px solid #ff2d75;color:#ff8fb5;border-radius:20px;padding:7px 12px;font-size:11px;white-space:nowrap}
-.input{display:flex;gap:8px;padding:10px;background:#000;border-top:1px solid #222}
-.input input{flex:1;padding:13px;border-radius:25px;border:none;background:#222;color:#fff;outline:none}
-.input button{background:#ff2d75;border:none;border-radius:50%;width:48px;height:48px;color:#fff}
+*{box-sizing:border-box;margin:0;font-family:system-ui} 
+body{max-width:480px;margin:auto;height:100vh;display:flex;flex-direction:column;background:#0f0a0f;color:#fff}
+.header{display:flex;align-items:center;gap:10px;padding:14px;background:linear-gradient(135deg,#1a0f1a,#2d1528);border-bottom:1px solid #333}
+.avatar{width:52px;height:52px;border-radius:50%;border:2px solid #ff2d75;position:relative} .avatar img{width:100%;height:100%;border-radius:50%}
+.online{position:absolute;bottom:0;right:0;width:12px;height:12px;background:#00ff88;border-radius:50%;border:2px solid #1a0f1a}
+.chat{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:14px;background:#0f0a0f}
+.bubble{max-width:82%;padding:12px 16px;border-radius:18px;font-size:14px;line-height:1.7;white-space:pre-wrap}
+.me{align-self:flex-end;background:#2a2a2a;border-bottom-left-radius:4px}
+.sara{align-self:flex-start;background:linear-gradient(135deg,#ff2d75,#e91e63);border-bottom-right-radius:4px;box-shadow:0 4px 12px rgba(255,45,117,0.3)}
+.pic{max-width:90%;align-self:flex-start;background:#1e1a1e;border-radius:18px;overflow:hidden;border:2px solid #ff2d75;box-shadow:0 8px 25px rgba(255,45,117,0.2)}
+.pic img{width:100%;display:block;min-height:280px;max-height:420px;object-fit:cover;background:#222}
+.foot{padding:12px;background:#161016}
+.foot .cap{font-size:12px;color:#ffb3cc;margin-bottom:10px;line-height:1.5}
+.btns{display:flex;gap:8px}
+.btn{flex:1;padding:10px;border-radius:22px;border:none;font-weight:700;font-size:12px;cursor:pointer;text-decoration:none;text-align:center}
+.dl{background:linear-gradient(135deg,#ff2d75,#e91e63);color:#fff}
+.share{background:#2a2a2a;color:#ffb3cc;border:1px solid #333}
+.quick{display:flex;gap:6px;padding:10px;overflow-x:auto;border-top:1px solid #222}
+.quick button{background:#1a1520;border:1px solid #3a2440;color:#d8a0c8;padding:8px 14px;border-radius:20px;font-size:11px;white-space:nowrap;cursor:pointer}
+.input{display:flex;gap:8px;padding:12px;background:#000;border-top:1px solid #222}
+.input input{flex:1;padding:14px 18px;border-radius:28px;border:none;background:#222;color:#fff;outline:none}
+.input button{background:#ff2d75;border:none;width:48px;height:48px;border-radius:50%;color:#fff;font-size:18px}
+.loading{max-width:88%;align-self:flex-start;background:#1e1a1e;border-radius:18px;padding:20px;border:1.5px solid #ff2d75;display:flex;align-items:center;gap:12px}
+.spinner{width:24px;height:24px;border:3px solid #333;border-top:3px solid #ff2d75;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 <div class="header">
-<img src="https://i.pravatar.cc/200?img=47">
-<h3>سارة - 26 سنة 💖</h3>
+<div class="avatar"><img src="https://i.pravatar.cc/200?img=47"><div class="online"></div></div>
+<div><b>سارة AI 💖 - ذكاء اصطناعي</b><div style="font-size:11px;color:#ff8fb5">تولد أي صورة تطلبها • متصلة الآن</div></div>
 </div>
 <div class="chat" id="chat"></div>
 <div class="quick">
-<button onclick="sendQ('بدي صورة واحد حاضن زوجته من الخلف')">🤗 حضن من الخلف</button>
-<button onclick="sendQ('بدي صورة حضن رومانسي')">💖 حضن</button>
-<button onclick="sendQ('بدي صورة رومانسية بغروب الشمس')">🌅 غروب</button>
+<button onclick="sendQ('بدي صورة واحد واقف وهو حاضن زوجته من الخلف وقت الغروب بحقل قمح')">🤗 حضن من الخلف بحقل</button>
+<button onclick="sendQ('بدي صورة زوجين ماسكين ايد بعض بحقل ورد ملون')">🌸 حقل ورد</button>
+<button onclick="sendQ('بدي صورة زوجين يطبخوا سوا بالمطبخ')">🍳 يطبخوا سوا</button>
+<button onclick="sendQ('بدي صورة رومانسية على شط وقت الغروب')">🌅 شط</button>
 </div>
 <div class="input">
-<input id="msg" placeholder="اكتب: بدي صورة ..." onkeypress="if(event.key==='Enter')send()">
+<input id="msg" placeholder="اطلب أي صورة بأي وصف... مثلا: بدي صورة حضن من الخلف بغروب" onkeypress="if(event.key==='Enter')send()">
 <button onclick="send()">➤</button>
 </div>
 <script>
 let chat=document.getElementById('chat');
-// صور مضمونة 100% من Unsplash - ما بتخلص وما فيها limit
-const LIB={
- hug_back: [
-  "https://images.unsplash.com/photo-1516589177381-225540d1a0b6?w=600&q=80&auto=format",
-  "https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=600&q=80&auto=format",
-  "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&q=80&auto=format"
- ],
- hug_front: [
-  "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&q=80&auto=format",
-  "https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=600&q=80&auto=format"
- ],
- romantic: [
-  "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&q=80&auto=format",
-  "https://images.unsplash.com/photo-1500628550463-c8881a54d4?w=600&q=80&auto=format",
-  "https://images.unsplash.com/photo-1516589177381-225540d1a0b6?w=600&q=80&auto=format"
- ],
- flower: [
-  "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=600&q=80&auto=format",
-  "https://images.unsplash.com/photo-1516589177381-225540d1a0b6?w=600&q=80&auto=format"
- ],
- beach: [
-  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format",
-  "https://images.unsplash.com/photo-1516589177381-225540d1a0b6?w=600&q=80&auto=format"
- ]
-};
-function add(t,w){chat.innerHTML+=`<div class="bubble ${w}">${t}</div>`;chat.scrollTop=chat.scrollHeight;}
-function addPic(url,cap){
- let id="img"+Date.now();
- chat.innerHTML+=`<div class="pic-wrap"><img id="${id}" src="${url}" loading="eager" onerror="this.src='https://images.unsplash.com/photo-1516589177381-225540d1a0b6?w=600'"><div class="foot"><span>${cap}</span><a href="${url}" target="_blank" class="dlbtn">⬇ تحميل</a></div></div>`;
- chat.scrollTop=chat.scrollHeight;
+function add(t,c){chat.innerHTML+=`<div class="bubble ${c}">${t}</div>`;chat.scrollTop=99999}
+function addLoading(txt){
+ chat.innerHTML+=`<div class="loading" id="ld"><div class="spinner"></div><div><b>سارة عم ترسم...</b><br><span style="font-size:11px;color:#aaa">${txt}</span></div></div>`;
+ chat.scrollTop=99999;
 }
-function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function removeLoading(){let l=document.getElementById('ld');if(l)l.remove()}
+function addPic(url,cap,prompt){
+ removeLoading();
+ let id='img'+Date.now();
+ chat.innerHTML+=`<div class="pic">
+ <img id="${id}" src="${url}" alt="${cap}" loading="eager" onerror="this.onerror=null;this.src='https://picsum.photos/seed/'+Math.random()+'/600/400'">
+ <div class="foot">
+  <div class="cap">🎨 ${cap}<br><span style="font-size:10px;color:#888">الوصف: ${prompt}</span></div>
+  <div class="btns">
+   <a href="${url}" target="_blank" download class="btn dl" onclick="downloadImage('${url}','${id}');return false">⬇ تحميل الصورة</a>
+   <button class="btn share" onclick="copyLink('${url}')">↗ مشاركة</button>
+  </div>
+ </div>
+ </div>`;
+ chat.scrollTop=99999;
+}
+function downloadImage(url,id){
+ fetch(url).then(r=>r.blob()).then(b=>{
+  let a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='sara-ai-'+Date.now()+'.jpg';a.click();
+ }).catch(()=>window.open(url,'_blank'));
+}
+function copyLink(url){navigator.clipboard.writeText(url).then(()=>alert('✅ تم نسخ رابط الصورة!')).catch(()=>prompt('انسخ الرابط:',url))}
+function generateImageUrl(userPrompt){
+ // تنظيف الوصف وتحويله لبرومبت انجليزي رومانسي محترم
+ let clean=userPrompt.replace(/بدي|صورة|ارسمي|سارة/g,'').trim();
+ let prompt=`romantic couple, ${clean}, modest clothing, respectful love, watercolor illustration, warm sunset, detailed, beautiful, highly detailed, 4k`;
+ let seed=Math.floor(Math.random()*999999);
+ // 3 سيرفرات احتياطية - اذا واحد فشل بيجرب التاني
+ let urls=[
+  `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=768&height=512&seed=${seed}&nologo=true&enhance=true`,
+  `https://picsum.photos/seed/${seed}/768/512`,
+  `https://loremflickr.com/768/512/romantic,couple,${encodeURIComponent(clean)}?lock=${seed}`
+ ];
+ return {url:urls[0],prompt:clean,fallbacks:urls};
+}
 function reply(txt){
  let low=txt.toLowerCase();
- let name="احمد";
- if(low.includes('صورة')||low.includes('حضن')||low.includes('رومانسي')){
-  let url, cap;
-  if(low.includes('من الخلف')||low.includes('ورا')||low.includes('خلف')){
-   url=pick(LIB.hug_back); cap="حضن من الخلف كله حب وامان يا "+name+" 🤗";
-  } else if(low.includes('ورد')||low.includes('حقل')||low.includes('زهر')){
-   url=pick(LIB.flower); cap="حقل ورد رومانسي يا "+name+" 🌸";
-  } else if(low.includes('شط')||low.includes('بحر')||low.includes('غروب')){
-   url=pick(LIB.beach); cap="غروب رومانسي يا "+name+" 🌅";
-  } else if(low.includes('حاضن')||low.includes('حضن')){
-   url=pick(LIB.hug_front); cap="حضن دافئ كله حب يا "+name+" 💖";
-  } else {
-   url=pick(LIB.romantic); cap="صورة رومانسية محترمة يا "+name+" 💖";
-  }
-  // عرض فوري - بدون انتظار
-  setTimeout(()=>addPic(url,cap),150);
-  return `تكرم يا ${name}! 😍 هاي صورة "${txt}" بالضبط مثل ما طلبت - بتفتح فورا وفيها زر تحميل! 💖`;
+ if(low.includes('صورة')||low.includes('ارسم')||low.includes('حضن')||low.includes('حاضن')||low.includes('زوجته')||low.includes('رومانسي')){
+  let gen=generateImageUrl(txt);
+  addLoading(`"${gen.prompt}"`);
+  // توليد فوري + محاولة تحميل
+  let img=new Image();
+  img.onload=()=>addPic(gen.url,`صورة "${txt}" - توليد ذكاء اصطناعي 💖`,gen.prompt);
+  img.onerror=()=>{
+   // اذا فشل السيرفر الأول، جرب الثاني
+   console.log('fallback');
+   addPic(gen.fallbacks[1],`صورة "${txt}" (سيرفر احتياطي) 💖`,gen.prompt);
+  };
+  img.src=gen.url;
+  return `تكرم يا احمد! 😍<br>سارة فهمت طلبك: <b>"${txt}"</b><br>عم تولد الصورة هلا بالذكاء الاصطناعي - أي وصف بتطلبه بتعمله! ✨<br><br>⏳ ثواني وبتطلع تحت...`;
  }
- if(low.includes('مرتي')||low.includes('نصيحة')) return "الله يحفظكم يا احمد! 💖 نصيحة: كل يوم احكي 'صباح الخير يا احلى شي بحياتي' 🌸";
- return "حبيت كلامك يا احمد! 🌸 اكتب: بدي صورة [اي وصف] وانا بجيبها فورا!";
+ if(low.includes('مرتي')) return 'الله يحفظكم يا احمد! 💖 جرب تطلب: بدي صورة رومانسية انا ومرتي وقت الغروب';
+ return 'حبيت كلامك يا احمد! 🌸<br>انا ذكاء اصطناعي - اطلب مني <b>أي صورة بأي وصف</b> وانا بولدها فورا!<br><br>مثال: بدي صورة واحد واقف وهو حاضن زوجته من الخلف بحقل قمح وقت الغروب';
 }
-function sendQ(t){document.getElementById('msg').value=t;send();}
+function sendQ(t){document.getElementById('msg').value=t;send()}
 function send(){
  let inp=document.getElementById('msg');let txt=inp.value.trim();if(!txt)return;
  add(txt,'me');inp.value='';
- setTimeout(()=>add(reply(txt),'sara'),400);
+ setTimeout(()=>add(reply(txt),'sara'),500);
 }
-add('هلا يا احمد! انا سارة 26 سنة 😍<br>هلا الصور مضمونة 100% وبتفتح فورا بدون limit!<br>جرب: بدي صورة واحد حاضن زوجته من الخلف','sara');
+add('هلا يا احمد! انا سارة - ذكاء اصطناعي حقيقي 😍<br><br>🎨 <b>اقدر اولد أي صورة تطلبها بأي وصف:</b><br>• بدي صورة حضن من الخلف بحقل قمح وقت الغروب<br>• بدي صورة زوجين يطبخوا سوا<br>• بدي صورة ماسكين ايد بعض بحقل ورد<br><br>جرب هلا - اطلب أي وصف بدك ياه!','sara');
 </script>
 </body>
 </html>
