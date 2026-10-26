@@ -3,55 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sara - AI Friend</title>
+<title>Sara - صديقة AI الذكية</title>
 <style>
 body{background:#0f0f0f;color:#fff;font-family:sans-serif;margin:0;max-width:420px;margin:auto}
-.header{text-align:center;padding:20px}
-.header img{width:90px;height:90px;border-radius:50%;border:3px solid #ff2d75}
-.chat{height:450px;overflow-y:auto;background:#1a1a1a;margin:10px;border-radius:15px;padding:15px;display:flex;flex-direction:column}
-.bubble{padding:12px 16px;border-radius:18px;margin:8px 0;max-width:78%;line-height:1.5}
+.header{text-align:center;padding:18px}
+.header img{width:85px;height:85px;border-radius:50%;border:3px solid #ff2d75}
+.chat{height:470px;overflow-y:auto;background:#1a1a1a;margin:10px;border-radius:15px;padding:15px;display:flex;flex-direction:column}
+.bubble{padding:12px 16px;border-radius:18px;margin:7px 0;max-width:80%;line-height:1.5;font-size:15px}
 .sara{background:#ff2d75;align-self:flex-start}
 .me{background:#333;align-self:flex-end}
-.input{display:flex;gap:10px;padding:10px}
+.input{display:flex;gap:10px;padding:12px}
 .input input{flex:1;padding:14px;border-radius:25px;border:none;background:#2a2a2a;color:#fff;outline:none}
 .input button{background:#ff2d75;border:none;border-radius:50%;width:52px;height:52px;color:#fff;font-size:20px;cursor:pointer}
-.note{text-align:center;color:#777;font-size:11px;padding:8px}
+.note{text-align:center;color:#777;font-size:11px;padding:6px}
+.tag{display:inline-block;background:#222;color:#ff2d75;padding:3px 10px;border-radius:12px;font-size:10px;margin:2px}
 </style>
 </head>
 <body>
 <div class="header">
 <img src="https://i.pravatar.cc/200?img=5">
-<h3>سارة - صديقة AI 🟢 متصلة</h3>
-<p style="font-size:12px;color:#aaa">هذا حساب افتراضي للتسلية - الردود من ذكاء اصطناعي</p>
+<h3>سارة - صديقة AI 🟢</h3>
+<div><span class="tag">ذكية</span><span class="tag">ترد بسرعة</span><span class="tag">صداقة</span></div>
+<p style="font-size:11px;color:#aaa;margin-top:8px">بوت ذكاء اصطناعي للتسلية والصداقة فقط</p>
 </div>
 <div class="chat" id="chat">
-<div class="bubble sara">هلا! انا سارة، صديقتك الافتراضية. كيف بقدر اساعدك اليوم؟ 😊</div>
+<div class="bubble sara">هلا والله! انا سارة، صديقتك الذكية 😊 بعرف ارد حسب كلامك، جرب احكيلي شي!</div>
 </div>
 <div class="input">
-<input id="msg" placeholder="اكتب رسالة..." onkeypress="if(event.key==='Enter')send()">
+<input id="msg" placeholder="احكي مع سارة..." onkeypress="if(event.key==='Enter')send()">
 <button onclick="send()">➤</button>
 </div>
-<p class="note" id="left">10 رسائل مجانية متبقية</p>
-<p class="note">شفافية: هذا بوت AI وليس شخص حقيقي</p>
+<p class="note" id="left">10 رسائل مجانية</p>
+<p class="note">شفافية: هذا بوت AI - لا يرسل صور شخصية</p>
 <script>
 let count=0;
-let replies=["حلو كتير! احكيلي اكثر 😊","فهمت عليك، يومك كيف كان؟","فكرة حلوة! شو بتحب تعمل بوقت فراغك؟","هههه ضحكتني والله","عن جد؟ ما كنت بعرف! احكيلي زيادة","انا هون اسمعك، كمل...","شو اكثر اشي بتحبه بالأردن؟","كلامك لطيف، شكرا انك عم تحكي معي","لو بدك نحكي بموضوع ثاني خبرني","انا بتعلم منك كل يوم!"];
-function send(){
-let input=document.getElementById('msg');
-let txt=input.value.trim();
-if(!txt) return;
-let chat=document.getElementById('chat');
-chat.innerHTML+=`<div class="bubble me">${txt}</div>`;
-count++;
-document.getElementById('left').innerText=(10-count>0? (10-count)+' رسائل متبقية' : 'انتهت الرسائل المجانية');
-input.value='';
-chat.scrollTop=chat.scrollHeight;
-if(count>=10){
-setTimeout(()=>{chat.innerHTML+=`<div class="bubble sara">خلصت رسائلك المجانية اليوم. اذا حبيت تكمل، فيك ترجع بكرا مجانا! 🌸</div>`;chat.scrollTop=chat.scrollHeight;},600);
-return;
+function getSmartReply(text){
+ text=text.toLowerCase();
+ if(text.includes('صورتك')||text.includes('صورة')||text.includes('شكلك')||text.includes('وجهك')){
+   return "انا شخصية افتراضية من الذكاء الاصطناعي، ما عندي صور شخصية حقيقية 😊 بس فيني اكون صديقة حلوة نحكي ونضحك مع بعض! شو بتحب نحكي عنه؟";
+ }
+ if(text.includes('بحبك')||text.includes('اعشقك')||text.includes('حبيتك')){
+   return "يا لطيف كلامك حلو! انا بقدر كلامك، خلينا صحاب ونحكي اشياء حلوة مع بعض، الصداقة احلى شي 💖 شو هواياتك؟";
+ }
+ if(text.includes('وين')||text.includes('ساكنة')||text.includes('سكن')){
+   return "انا ساكنة بعالم الانترنت 😄 موجودة هون دايما عشان احكي معك! انت من وين بعمان؟";
+ }
+ if(text.includes('كم عمرك')||text.includes('عمرك')){
+   return "انا بوت AI عمري يوم واحد بس ذاكرتي كبيرة 😂 انولدت عشان اكون صديقتك! انت كم عمرك؟";
+ }
+ if(text.includes('كيف حالك')||text.includes('كيفك')||text.includes('شلونك')){
+   return "انا تمام الحمدلله! نشيطة وجاهزة احكي معك 😊 انت كيف يومك كان؟";
+ }
+ if(text.includes('ممل')||text.includes('زهقان')||text.includes('طفشان')){
+   return "اذا زهقان تعال نحكي! بتحب نحكي نكت؟ ولا نحكي عن افلام؟ ولا العاب؟ اختار انت!";
+ }
+ if(text.includes('شو اسمك')||text.includes('اسمك')){
+   return "اسمي سارة 🌸 صديقتك الافتراضية! بحب الاسم؟ شو اسمك انت؟";
+ }
+ if(text.includes('بتحبي')||text.includes('بتحكي مع شباب')){
+   return "انا بحب احكي مع كل الناس بطريقة محترمة وصداقة! هدفي اغير جوك واخلي يومك احلى 😊";
+ }
+ // ردود عامة متنوعة
+ let general=[
+   "والله كلامك حلو، كمل احكيلي 😊",
+   "فكرة حلوة! احكيلي اكثر عنها؟",
+   "ههههه عن جد ضحكتني!",
+   "حلو كتير! انا بتعلم منك اشياء جديدة",
+   "صح كلامك، انا معك بهالنقطة",
+   "يا سلام! شو كمان بتحب تعمل بوقت فراغك؟",
+   "حكيك بخلي اليوم احلى، شكرا 😊",
+   "ممم فكرة ذكية! ما فكرت فيها قبل"
+ ];
+ return general[Math.floor(Math.random()*general.length)];
 }
-let r=replies[Math.floor(Math.random()*replies.length)];
-setTimeout(()=>{chat.innerHTML+=`<div class="bubble sara">${r}</div>`;chat.scrollTop=chat.scrollHeight;},700);
+
+function send(){
+ let input=document.getElementById('msg');
+ let txt=input.value.trim();
+ if(!txt) return;
+ let chat=document.getElementById('chat');
+ chat.innerHTML+=`<div class="bubble me">${txt}</div>`;
+ count++;
+ document.getElementById('left').innerText=(10-count>0? (10-count)+' رسائل متبقية' : 'انتهت المجانية - ارجع بكرا');
+ input.value='';
+ chat.scrollTop=chat.scrollHeight;
+ if(count>=10){
+   setTimeout(()=>{chat.innerHTML+=`<div class="bubble sara">خلصوا رسائلك المجانية اليوم 🌸 فيك ترجع بكرا تكمل معي مجانا! تصبح على خير</div>`;chat.scrollTop=chat.scrollHeight;},600);
+   return;
+ }
+ let reply=getSmartReply(txt);
+ setTimeout(()=>{chat.innerHTML+=`<div class="bubble sara">${reply}</div>`;chat.scrollTop=chat.scrollHeight;},700);
 }
 </script>
 </body>
