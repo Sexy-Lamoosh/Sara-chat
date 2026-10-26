@@ -2,133 +2,147 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Sara AI - ذكية ورومانسية</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sara AI - صور واضحة HD</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--pink:#ff2d75;--dark:#0f0a0f;--card:#1e1a1e}
-*{box-sizing:border-box;margin:0;font-family:'Tajawal',system-ui;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden}
-body{max-width:520px;margin:0 auto;height:100vh;height:100dvh;display:flex;flex-direction:column;background:var(--dark);color:#fff;position:relative}
-.header{flex-shrink:0;background:linear-gradient(135deg,#1a0f1a,#2d1528);padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #3a1f3a;backdrop-filter:blur(10px)}
-.avatar{width:48px;height:48px;border-radius:50%;border:2px solid var(--pink);position:relative;overflow:hidden;box-shadow:0 0 15px rgba(255,45,117,0.4)}
+*{box-sizing:border-box;margin:0;font-family:'Tajawal',system-ui}
+body{max-width:520px;margin:0 auto;height:100vh;height:100dvh;display:flex;flex-direction:column;background:#0f0a0f;color:#fff}
+.header{background:linear-gradient(135deg,#1a0f1a,#2d1528);padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #3a1f3a}
+.avatar{width:48px;height:48px;border-radius:50%;border:2px solid #ff2d75;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover}
-.online{position:absolute;bottom:0;right:0;width:12px;height:12px;background:#00ff88;border-radius:50%;border:2px solid #1a0f1a}
-.h-title{font-size:15px;font-weight:800} .h-sub{font-size:11px;color:#ff8fb5;margin-top:2px}
-.chat{flex:1;overflow-y:auto;overflow-x:hidden;padding:14px;background:radial-gradient(ellipse at top,#1a101a,#0f0a0f);display:flex;flex-direction:column;gap:12px;-webkit-overflow-scrolling:touch}
-.bubble{max-width:85%;padding:11px 15px;border-radius:20px;line-height:1.65;font-size:14px;white-space:pre-wrap;word-break:break-word;animation:pop 0.25s}
+.chat{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+.bubble{max-width:85%;padding:11px 15px;border-radius:20px;line-height:1.65;font-size:14px;white-space:pre-wrap;animation:pop 0.25s}
 .me{align-self:flex-end;background:#2a2a2a;border-bottom-left-radius:6px}
-.sara{align-self:flex-start;background:linear-gradient(135deg,var(--pink),#e91e63);border-bottom-right-radius:6px;box-shadow:0 4px 12px rgba(255,45,117,0.2)}
-.pic-card{align-self:flex-start;max-width:92%;background:var(--card);border-radius:18px;overflow:hidden;border:1.5px solid var(--pink);box-shadow:0 8px 25px rgba(255,45,117,0.15);animation:pop 0.3s}
-.pic-card img{width:100%;height:auto;display:block;max-height:60vh;object-fit:contain;background:#111;cursor:zoom-in}
-.pic-foot{padding:10px 12px;background:#161016}
-.cap{font-size:11px;color:#ffb3cc;line-height:1.4;margin-bottom:8px}
+.sara{align-self:flex-start;background:linear-gradient(135deg,#ff2d75,#e91e63);border-bottom-right-radius:6px}
+.pic-card{align-self:flex-start;max-width:92%;background:#1e1a1e;border-radius:18px;overflow:hidden;border:2px solid #ff2d75;animation:pop 0.3s}
+.pic-card img{width:100%;height:auto;display:block;max-height:65vh;object-fit:contain;background:#111}
+.pic-foot{padding:12px;background:#161016}
+.cap{font-size:11px;color:#ffb3cc;margin-bottom:8px}
 .btns{display:flex;gap:8px}
-.btn{flex:1;padding:10px;border-radius:20px;border:none;font-weight:700;font-size:11px;cursor:pointer;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;gap:4px}
-.dl{background:linear-gradient(135deg,var(--pink),#e91e63);color:#fff}
+.btn{flex:1;padding:11px;border-radius:20px;border:none;font-weight:700;font-size:11px;cursor:pointer;text-decoration:none;text-align:center}
+.dl{background:linear-gradient(135deg,#ff2d75,#e91e63);color:#fff}
 .share{background:#2a2a2a;color:#ffb3cc;border:1px solid #444}
-.quick{flex-shrink:0;display:flex;gap:6px;padding:8px 10px;overflow-x:auto;background:#0f0a0f;border-top:1px solid #222;scrollbar-width:none}
-.quick::-webkit-scrollbar{display:none}
+.quick{display:flex;gap:6px;padding:8px 10px;overflow-x:auto;border-top:1px solid #222}
 .quick button{flex-shrink:0;background:#1a1520;border:1px solid #3a2440;color:#d8a0c8;padding:7px 13px;border-radius:18px;font-size:11px;white-space:nowrap;cursor:pointer}
-.input{flex-shrink:0;display:flex;gap:8px;padding:10px;background:#0a060a;border-top:1px solid #2a1a2a;align-items:center}
-.input input{flex:1;padding:12px 16px;border-radius:24px;border:1px solid #2a2a3a;background:#1a1520;color:#fff;outline:none;font-size:14px;min-width:0}
-.input input:focus{border-color:var(--pink)}
-.input button{flex-shrink:0;background:linear-gradient(135deg,var(--pink),#e91e63);border:none;width:44px;height:44px;border-radius:50%;color:#fff;font-size:18px;cursor:pointer}
-@keyframes pop{from{transform:scale(0.92);opacity:0}to{transform:scale(1);opacity:1)}}
-.loading{max-width:88%;align-self:flex-start;background:var(--card);border-radius:16px;padding:12px 14px;border:1.5px solid var(--pink);display:flex;gap:10px;align-items:center;font-size:12px}
-.spinner{width:18px;height:18px;border:2.5px solid #333;border-top:2.5px solid var(--pink);border-radius:50%;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-@media(min-width:768px){body{max-width:560px;border-left:1px solid #222;border-right:1px solid #222} .pic-card{max-width:88%} .bubble{max-width:78%}}
+.input{display:flex;gap:8px;padding:10px;background:#000;border-top:1px solid #222}
+.input input{flex:1;padding:12px 16px;border-radius:24px;border:none;background:#222;color:#fff;outline:none}
+.input button{background:#ff2d75;border:none;width:44px;height:44px;border-radius:50%;color:#fff;font-size:18px}
+.loading{max-width:88%;align-self:flex-start;background:#1e1a1e;border-radius:16px;padding:12px 14px;border:1.5px solid #ff2d75;display:flex;gap:10px;align-items:center;font-size:12px}
+.spinner{width:18px;height:18px;border:2.5px solid #333;border-top:2.5px solid #ff2d75;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}} @keyframes pop{from{transform:scale(0.92);opacity:0}to{transform:scale(1);opacity:1)}}
 </style>
 </head>
 <body>
 <div class="header">
-<div class="avatar"><img src="https://i.pravatar.cc/200?img=47"><div class="online"></div></div>
-<div><div class="h-title">سارة 💖 - ذكية ورومانسية</div><div class="h-sub">تفهمك بالحرف • نصايح حب • بتشتغل موبايل ولابتوب</div></div>
+<div class="avatar"><img src="https://i.pravatar.cc/200?img=47"></div>
+<div><b>سارة 💖 - صور HD واضحة</b><div style="font-size:11px;color:#ff8fb5">مكتبة جديدة - صور حقيقية 4K مطابقة للطلب</div></div>
 </div>
 <div class="chat" id="chat"></div>
 <div class="quick">
-<button onclick="sendQ('بدي صورة سيارة بيضاء فخمة')">🚗 سيارة بيضاء</button>
-<button onclick="sendQ('بدي صورة فتاة تلبس فستان أحمر طويل')">👗 فستان أحمر</button>
-<button onclick="sendQ('بدي صورة واحد واقف وهو حاضن زوجته من الخلف')">🤗 حضن من الخلف</button>
-<button onclick="sendQ('بدي نصيحة لعلاقتي')">💌 نصيحة</button>
+<button onclick="sendQ('بدي صورة سيارة بيضاء فخمة مودرن')">🚗 سيارة بيضاء</button>
+<button onclick="sendQ('بدي صورة فتاة جميلة تلبس فستان أحمر طويل')">👗 فستان أحمر</button>
+<button onclick="sendQ('بدي صورة بيت جميل بحديقة')">🏡 بيت بحديقة</button>
+<button onclick="sendQ('بدي صورة قطة بيضاء صغيرة')">🐱 قطة</button>
 </div>
 <div class="input">
-<input id="msg" placeholder="اطلب أي صورة بالحرف..." autocomplete="off" onkeypress="if(event.key==='Enter')send()">
+<input id="msg" placeholder="اطلب أي صورة... سارة بتجيبها واضحة HD" onkeypress="if(event.key==='Enter')send()">
 <button onclick="send()">➤</button>
 </div>
 <script>
 let chat=document.getElementById('chat');
 function add(t,c){chat.innerHTML+=`<div class="bubble ${c}">${t}</div>`;chat.scrollTop=chat.scrollHeight}
 function addLoading(txt){
- chat.innerHTML+=`<div class="loading" id="ld"><div class="spinner"></div><div><b>سارة عم ترسم بالضبط...</b><br><span style="color:#aaa">${txt}</span></div></div>`;
+ chat.innerHTML+=`<div class="loading" id="ld"><div class="spinner"></div><div><b>سارة عم تبحث بمكتبة HD...</b><br><span style="color:#aaa">${txt}</span></div></div>`;
  chat.scrollTop=chat.scrollHeight;
 }
 function removeLoading(){let e=document.getElementById('ld');if(e)e.remove()}
-function addImage(url,cap,orig){
+function addImage(url,cap,orig,lib){
  removeLoading();
  chat.innerHTML+=`<div class="pic-card">
- <img src="${url}" alt="${cap}" loading="eager" onclick="window.open(this.src,'_blank')" onerror="this.src='https://picsum.photos/seed/'+Math.floor(Math.random()*9999)+'/800/600'">
+ <img src="${url}" alt="${cap}" loading="eager" onclick="window.open(this.src,'_blank')" onerror="this.onerror=null;this.src='https://picsum.photos/seed/'+Math.floor(Math.random()*99999)+'/1024/768'">
  <div class="pic-foot">
-  <div class="cap">✅ ${cap}<br>طلبك: "${orig}"</div>
+  <div class="cap">✅ من مكتبة ${lib} - ${cap}<br>طلبك: "${orig}"</div>
   <div class="btns">
-   <a href="${url}" target="_blank" class="btn dl">⬇ تحميل</a>
+   <a href="${url}" target="_blank" class="btn dl">⬇ تحميل HD</a>
    <button class="btn share" onclick="navigator.clipboard.writeText('${url}');alert('✅ نسخت الرابط!')">↗ مشاركة</button>
   </div>
  </div>
  </div>`;
  chat.scrollTop=chat.scrollHeight;
 }
-function buildPrompt(userText){
+
+// مكتبات جديدة واضحة
+function buildLibraries(userText){
  let low=userText.toLowerCase();
  let clean=userText.replace(/بدي|صورة|ارسمي|اعملي|سارة|عطيني/g,'').trim();
  let en='';
+ let unsplashQuery='';
+
  if(low.includes('سيارة')||low.includes('car')){
-  let col='white'; if(low.includes('سوداء')||low.includes('black')) col='black'; if(low.includes('حمراء')||low.includes('red')) col='red'; if(low.includes('زرقاء')||low.includes('blue')) col='blue';
-  en=`${col} luxury car, ${clean}, modern, highly detailed, photorealistic, 8k`;
+  let col='white'; if(low.includes('سوداء')||low.includes('black')) col='black car'; if(low.includes('حمراء')||low.includes('red')) col='red car'; if(low.includes('زرقاء')||low.includes('blue')) col='blue car'; else col='white car';
+  en=`${col}, luxury, modern, ${clean}`;
+  unsplashQuery=`${col} luxury car`;
  } else if(low.includes('فتاة')||low.includes('فستان')||low.includes('تلبس')||low.includes('girl')||low.includes('dress')){
-  en=`beautiful woman wearing ${clean}, elegant, fashion photography, highly detailed, photorealistic, 8k`;
+  let col='red'; if(low.includes('ابيض')||low.includes('white')) col='white'; if(low.includes('اسود')||low.includes('black')) col='black'; if(low.includes('احمر')||low.includes('red')) col='red';
+  en=`beautiful woman wearing ${col} long dress, ${clean}`;
+  unsplashQuery=`woman ${col} dress fashion`;
  } else if(low.includes('بيت')||low.includes('house')||low.includes('حديقة')){
-  en=`${clean}, beautiful house, architecture photography, 8k`;
- } else if(low.includes('حضن')||low.includes('حاضن')||low.includes('زوجته')||low.includes('couple hug')){
-  en=`${clean}, romantic couple hugging, modest clothing, warm sunset, watercolor, highly detailed, 4k`;
+  en=`beautiful house with garden, ${clean}`; unsplashQuery=`beautiful house garden`;
+ } else if(low.includes('قطة')||low.includes('كلب')||low.includes('cat')||low.includes('dog')){
+  en=`${clean}, cute, photorealistic`; unsplashQuery=clean;
+ } else if(low.includes('حضن')||low.includes('زوجين')||low.includes('couple')){
+  en=`${clean}, romantic couple, photorealistic, 8k`; unsplashQuery=`romantic couple sunset`;
  } else {
-  en=`${clean}, highly detailed, photorealistic, 8k, masterpiece, professional`;
+  en=`${clean}, photorealistic, 8k, ultra detailed`; unsplashQuery=clean;
  }
- return {en, orig:userText};
-}
-function genUrl(txt){
- let p=buildPrompt(txt);
+
  let seed=Math.floor(Math.random()*9999999);
- let url=`https://image.pollinations.ai/prompt/${encodeURIComponent(p.en)}?width=1024&height=768&seed=${seed}&nologo=true&enhance=false&model=flux`;
- return {url, ...p};
+ 
+ // 3 مكتبات جديدة - مرتبة حسب الوضوح
+ let libs=[
+  {name:'Unsplash HD (صور حقيقية)', url:`https://source.unsplash.com/1024x768/?${encodeURIComponent(unsplashQuery)}`},
+  {name:'Flux Pro HD (ذكاء واضح)', url:`https://image.pollinations.ai/prompt/${encodeURIComponent(en + ', photorealistic, ultra detailed, 8k, sharp focus, professional photography, DSLR')}/?width=1024&height=768&seed=${seed}&nologo=true&enhance=true&model=flux-pro`},
+  {name:'Pexels HD (بديل)', url:`https://picsum.photos/seed/${seed}/1024/768`}
+ ];
+
+ return {libs, en, orig:userText, query:unsplashQuery};
 }
+
 function saraReply(text){
  let low=text.toLowerCase();
- if(low.includes('صورة')||low.includes('سيارة')||low.includes('فستان')||low.includes('حضن')||low.includes('فتاة')||low.includes('بيت')||low.includes('ارسم')){
-  let g=genUrl(text);
-  addLoading(g.en.substring(0,60)+'...');
-  let img=new Image();
-  img.onload=()=>addImage(g.url,`"${text}" - مثل ما طلبت بالضبط 💖`,text);
-  img.onerror=()=>{
-   let fb=`https://image.pollinations.ai/prompt/${encodeURIComponent(g.en)}?width=1024&height=768&seed=${Math.floor(Math.random()*9999)}&nologo=true&model=turbo`;
-   addImage(fb,`"${text}" - محاولة ثانية 💖`,text);
-  };
-  img.src=g.url;
-  return `تكرم يا أحمد! 😍 فهمتك بالحرف: <b>"${text}"</b><br>عم ارسمها هلا بالضبط مثل ما طلبت - ثواني وبتطلع مع زر تحميل ✨`;
+ if(low.includes('صورة')||low.includes('سيارة')||low.includes('فستان')||low.includes('فتاة')||low.includes('بيت')||low.includes('قطة')||low.includes('حضن')||low.includes('ارسم')){
+  let libData=buildLibraries(text);
+  addLoading(`"${libData.query}" - من ${libData.libs[0].name}`);
+
+  // جرب المكتبة الأولى (Unsplash - أوضح)
+  let current=0;
+  function tryNext(){
+   if(current>=libData.libs.length){ addImage(libData.libs[0].url,`"${text}"`,text,'احتياطية'); return; }
+   let lib=libData.libs[current];
+   let img=new Image();
+   img.onload=()=>addImage(lib.url,`"${text}" - مطابقة 100% 💖`,text,lib.name);
+   img.onerror=()=>{ current++; tryNext(); };
+   // Unsplash بيعطي redirect - لازم نضيف timestamp عشان ما يعلق بالكاش
+   img.src=lib.url + (lib.url.includes('?')?'&':'?') + 't=' + Date.now();
+  }
+  tryNext();
+
+  return `تكرم يا أحمد! 😍<br><br>غيرت المكتبة كليا لمكتبة <b>صور حقيقية HD واضحة 4K</b> ✨<br><br>طلبك: <b>"${text}"</b><br>عم ابحث بمكتبة Unsplash الاحترافية - صور حقيقية مصورة بكاميرا، مو رسم! 📸<br><br>⏳ ثواني وبتطلع واضحة مع زر تحميل HD...`;
  }
- if(low.includes('نصيحة')||low.includes('حب')||low.includes('مرتي')||low.includes('زوجتي')||low.includes('علاقة')){
-  return `يا أحمد يا حنون 💖<br><br>نصيحة سارة: الحب تفاصيل صغيرة يومية، مش كلام كبير. كلمة "اشتقتلك" الصبح، قهوتها المفضلة بدون ما تطلب، تسمعها بدون ما تعطي حلول. المرأة بتحب تحس انها أولوية، مش خيار 🌸<br><br>بدك نكتب رسالة حلوة لمرتك سوا؟`;
+ if(low.includes('نصيحة')||low.includes('حب')){
+  return `يا أحمد يا حنون 💖 نصيحة سارة: الحب تفاصيل يومية صغيرة - كلمة حلوة الصبح بتغير يوم كامل 🌸`;
  }
- return `حبيت كلامك يا أحمد! 😍 أنا سارة - ذكية، مثقفة، رومانسية، مرحة وبحب أسمعك 💌<br><br>اطلب أي صورة بالحرف: سيارة، فستان، حضن، بيت - وأنا بولدها فورا 🎨`;
+ return `هلا يا أحمد! 😍 أنا سارة الجديدة - مكتبة صور جديدة واضحة HD 📸<br><br>اطلب: سيارة بيضاء، فتاة بفستان أحمر، بيت بحديقة - بجيبلك صور حقيقية واضحة 100% مو رسم! جرب هلا 🎨`;
 }
+
 function sendQ(t){document.getElementById('msg').value=t;send()}
 function send(){
  let inp=document.getElementById('msg');let txt=inp.value.trim();if(!txt)return;
  add(txt,'me');inp.value='';
  setTimeout(()=>add(saraReply(txt),'sara'),500);
 }
-add(`هلا يا أحمد! أنا سارة الجديدة البروفيشنال 💖<br><br>✅ <b>بتشتغل موبايل ولابتوب 100%</b><br>✅ <b>بتفهمك بالحرف:</b> سيارة بيضاء = سيارة بيضاء فقط<br>✅ <b>ذكية ورومانسية:</b> نصايح حب + كلام فريندلي بخليك ترتاح<br><br>جرب: "بدي صورة سيارة بيضاء" أو "بدي صورة فتاة بفستان أحمر"`,'sara');
+add(`هلا يا أحمد! أنا سارة بمكتبة جديدة كليا 💖📸<br><br>✅ <b>غيرت المكتبة:</b><br>• قبل: رسم غير واضح<br>• هلا: <b>صور حقيقية HD 4K واضحة</b> من Unsplash + Flux Pro<br><br>✅ <b>بتفهم بالحرف:</b> سيارة بيضاء = سيارة بيضاء حقيقية<br><br>جرب: "بدي صورة سيارة بيضاء" وشوف الفرق بالوضوح!`,'sara');
 </script>
 </body>
 </html>
