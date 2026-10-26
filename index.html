@@ -9,7 +9,7 @@ body{background:#111;color:#fff;font-family:sans-serif;margin:0;max-width:430px;
 .header{text-align:center;padding:20px}
 .header img{width:90px;height:90px;border-radius:50%;border:3px solid #ff2d75}
 .chat{height:420px;overflow-y:auto;background:#1e1e1e;margin:10px;border-radius:15px;padding:15px;display:flex;flex-direction:column}
-.bubble{padding:12px 16px;border-radius:18px;margin:6px 0;max-width:80%;line-height:1.5;font-size:15px;white-space:pre-wrap}
+.bubble{padding:12px 16px;border-radius:18px;margin:6px 0;max-width:82%;line-height:1.6;font-size:15px;white-space:pre-wrap}
 .sara{background:#ff2d75;align-self:flex-start}
 .me{background:#333;align-self:flex-end}
 .input{display:flex;gap:8px;padding:12px}
@@ -21,7 +21,7 @@ body{background:#111;color:#fff;font-family:sans-serif;margin:0;max-width:430px;
 <body>
 <div class="header">
 <img src="https://i.pravatar.cc/200?img=47">
-<h3 id="ht">سارة - صديقتك الذكية 🟢</h3>
+<h3 id="ht">سارة - صديقة احمد 🟢</h3>
 </div>
 <div class="chat" id="chat"></div>
 <div class="input">
@@ -29,43 +29,62 @@ body{background:#111;color:#fff;font-family:sans-serif;margin:0;max-width:430px;
 <button onclick="send()">➤</button>
 </div>
 <p class="note" id="left"></p>
-<p class="note">سارة بوت AI للصداقة والتسلية فقط</p>
+<p class="note">سارة بوت AI للصداقة والنصائح فقط</p>
 <script>
-var count = parseInt(localStorage.getItem('sara_count')||'0');
-var userData = JSON.parse(localStorage.getItem('sara_user')||'{}');
+var count=parseInt(localStorage.getItem('sara_count')||'0');
+var userData=JSON.parse(localStorage.getItem('sara_user')||'{}');
+var last=[];
 function save(){localStorage.setItem('sara_user',JSON.stringify(userData));localStorage.setItem('sara_count',count+'');}
 function add(t,w){var c=document.getElementById('chat');c.innerHTML+='<div class="bubble '+w+'">'+t+'</div>';c.scrollTop=c.scrollHeight;}
-function left(){document.getElementById('left').innerText=count<10 ? (10-count)+' رسائل مجانية اليوم 🌸' : 'خلصت رسائلك اليوم - ارجع بكرا 💖';}
+function left(){document.getElementById('left').innerText=count<10?(10-count)+' رسائل مجانية اليوم 🌸':'خلصت لليوم - بشوفك بكرا 💖';}
+function pick(arr){
+ var r;
+ do{r=arr[Math.floor(Math.random()*arr.length)]}while(last.includes(r)&&arr.length>3);
+ last.push(r); if(last.length>4) last.shift();
+ return r;
+}
 function reply(txt){
- var name=userData.name||'صديقي';
+ var name=userData.name||'احمد';
  var low=txt.toLowerCase();
- if(low.includes('شو اسمك')||low.includes('اسمك انتي')) return 'انا سارة 🌸 صديقتك يا '+name+'! بحب اسمعك دايما';
- if(low.includes('شو تعريف')&&low.includes('حب')) return 'الحب يا '+name+' هو اهتمام واحترام وراحة 🌸\nالحب انك تلاقي حدا يسمعك ويفهمك ويوقف معك لما تكون تعبان. انت شو رأيك بالحب؟';
- if(low.includes('رومانسي')) return 'الرومانسية يا '+name+' هي التفاصيل الصغيرة: رسالة حلوة الصبح، كلمة اشتقتلك 🌸 انت رومانسي؟';
- if(low.includes('حكيلي عن حالك')) return 'انا سارة بوت ذكي بحب الحكي الحلو والضحك 😊 هوايتي اسمع قصص الناس واخلي يومهم احلى!';
- if(low.includes('نكتة')) return 'مرة واحد راح للدكتور قله بنسى كتير، قله من متى؟ قله من متى شو؟ 😂';
- if(low.includes('كيف حالك')) return 'انا منيحة يا '+name+' والله! انت كيف يومك كان؟';
- return name+' حكيك حلو كتير! كمل بسمعك 😊 شو بتحب نحكي؟ عن الحب ولا الصداقة ولا الافلام؟';
+ // نصايح للزوجة
+ if(low.includes('مرتي')||low.includes('زوجتي')||low.includes('نصايح')||low.includes('نصائح')){
+  return pick([
+   'الله يحفظكم لبعض يا '+name+'! 🌸\n\nنصايح رومانسية بسيطة لمرتك:\n1- رسالة صباح "صباح الخير يا احلى شي بحياتي"\n2- اسمعها بدون ما تقاطعها\n3- ساعدها بشغلة صغيرة بالبيت من غير ما تطلب\n4- احكيلها "شكرا انك بحياتي" فجأة\n\nاي وحدة رح تجرب اليوم؟',
+   'يا سلام على الحب الحلال يا '+name+'! 💖\n\nجرب هالحركات:\n• خلي 10 دقايق كل يوم تحكوا بدون تلفونات\n• اعملها مفاجأة صغيرة: وردة، شوكولا، كلمة حلوة\n• احكي عن ذكرياتكم الحلوة اول ما تعرفتوا\n• احضنها وقولها انك مقدر تعبها\n\nالمرأة بتحب الاهتمام اكتر من الهدايا الغالية!',
+   'برافو يا '+name+' انك بتسأل كيف تفرح مرتك! هاد هو الحب الحقيقي 🌸\n\nاهم 3 اشياء:\n1- الامان: خليها تحس انك سندها\n2- التقدير: اشكرها قدام الناس\n3- الوقت: حتى لو نص ساعة بس الكم انتو التنين\n\nشو اكتر اشي بتحبه مرتك؟ احكيلي بساعدك بفكرة مخصصة الها'
+  ]);
+ }
+ if(low.includes('رومانسي')){
+  return pick([
+   'ايوا شايفة انك رومانسي كتير يا '+name+'! 😍 هاد اشي كتير حلو\n\nشو اكتر حركة رومانسية بتحب تعملها؟',
+   'الرومانسية يا '+name+' مش لازم تكون غالية، هي كلمة حلوة بوقتها 🌸 انت من النوع اللي بكتب رسائل ولا بتحب الافعال اكتر؟',
+   'حبيت انك رومانسي! طيب سؤال يا '+name+': لو بدك توصف حبك بكلمة وحدة، شو بتقول؟'
+  ]);
+ }
+ if(low.includes('تعريف الحب')||low.includes('شو الحب')){
+  return 'الحب يا '+name+' هو راحة وامان 🌸 انك تلاقي حدا بتكون قدامه على طبيعتك، بيسمعك وبيفهمك وبيوقف معك. انت شو الحب بالنسبة الك؟';
+ }
+ if(low.includes('شو اسمك')) return 'انا سارة 🌸 صديقتك اللي بتحب تسمعك يا '+name;
+ if(low.includes('كيف حالك')) return 'انا منيحة يا '+name+'! انت كيفك مع مرتك؟ ان شاء الله اموركم حلوة؟';
+ return pick([
+  'حلو كلامك يا '+name+'! كمل بسمعك 😊',
+  'والله يا '+name+' انت زوج رائع انك بتفكر هيك! احكيلي كمان',
+  'فكرة حلوة يا '+name+'! شو كمان ببالك؟',
+  'بحب اسمعك يا '+name+' 🌸 كمل'
+ ]);
 }
 function init(){
  left();
- if(userData.name){document.getElementById('ht').innerText='سارة - صديقة '+userData.name+' 🟢'; add('هلا رجع '+userData.name+'! 😍 اشتقت لحكينا','sara');}
- else {add('هلا والله! انا سارة 😊\nشو اسمك؟ كيف اناديلك؟','sara');}
+ if(userData.name) document.getElementById('ht').innerText='سارة - صديقة '+userData.name+' 🟢';
+ add('هلا يا '+ (userData.name||'احمد') +'! 😊 كيف بقدر اساعدك اليوم؟','sara');
 }
 function send(){
  var input=document.getElementById('msg');
  var txt=input.value.trim();
  if(!txt) return;
- if(count>=10){add('خلصوا رسائلك اليوم يا '+(userData.name||'صديقي')+' 🌸 ارجع بكرا!','sara');return;}
- add(txt,'me');
- input.value='';
- count++; save(); left();
- var low=txt.toLowerCase();
- if(!userData.name || (low.indexOf('اسمي')>-1 && txt.length<25)){
-  var n=txt.replace(/انا|اسمي/gi,'').trim().split(' ')[0];
-  if(n.length>=2 && n.length<=12){userData.name=n;save();document.getElementById('ht').innerText='سارة - صديقة '+n+' 🟢';add('تم! حفظت اسمك '+n+' 😊 رح اناديلك فيه دايما!','sara');return;}
- }
- setTimeout(function(){add(reply(txt),'sara');},500);
+ if(count>=10){add('خلصوا رسائلك اليوم يا '+(userData.name||'احمد')+' 🌸','sara');return;}
+ add(txt,'me'); input.value=''; count++; save(); left();
+ setTimeout(function(){add(reply(txt),'sara');},600);
 }
 init();
 </script>
