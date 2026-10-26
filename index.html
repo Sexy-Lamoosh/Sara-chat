@@ -1,36 +1,3 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sara - صديقتك اللي بتتذكرك</title>
-<style>
-body{background:#0f0f0f;color:#fff;font-family:sans-serif;margin:0;max-width:420px;margin:auto}
-.header{text-align:center;padding:18px}
-.header img{width:90px;height:90px;border-radius:50%;border:3px solid #ff2d75}
-.chat{height:460px;overflow-y:auto;background:#1a1a1a;margin:10px;border-radius:15px;padding:15px;display:flex;flex-direction:column}
-.bubble{padding:12px 16px;border-radius:18px;margin:7px 0;max-width:82%;line-height:1.6;font-size:15px;white-space:pre-wrap}
-.sara{background:#ff2d75;align-self:flex-start}
-.me{background:#333;align-self:flex-end}
-.input{display:flex;gap:10px;padding:12px}
-.input input{flex:1;padding:14px;border-radius:25px;border:none;background:#2a2a2a;color:#fff;outline:none}
-.input button{background:#ff2d75;border:none;border-radius:50%;width:52px;height:52px;color:#fff;font-size:20px}
-.note{text-align:center;color:#666;font-size:11px;padding:6px}
-</style>
-</head>
-<body>
-<div class="header">
-<img src="https://i.pravatar.cc/200?img=47">
-<h3 id="title">سارة - صديقتك الذكية 🟢</h3>
-<p style="font-size:11px;color:#aaa">بتتذكر اسمك - بوت AI للصداقة</p>
-</div>
-<div class="chat" id="chat"></div>
-<div class="input">
-<input id="msg" placeholder="احكي مع سارة..." onkeypress="if(event.key==='Enter')send()">
-<button onclick="send()">➤</button>
-</div>
-<p class="note" id="left"></p>
-<p class="note">شفافية: سارة بوت AI - صديقة افتراضية للتسلية فقط</p>
 <script>
 let count=parseInt(localStorage.getItem('sara_count')||'0');
 let userData=JSON.parse(localStorage.getItem('sara_user')||'{}');
@@ -38,55 +5,38 @@ let lastReply="";
 function save(){localStorage.setItem('sara_user',JSON.stringify(userData));localStorage.setItem('sara_count',count+'')}
 function addBubble(t,w){let c=document.getElementById('chat');c.innerHTML+=`<div class="bubble ${w}">${t}</div>`;c.scrollTop=c.scrollHeight}
 function uniquePick(arr){let r;do{r=arr[Math.floor(Math.random()*arr.length)]}while(r===lastReply&&arr.length>1);lastReply=r;return r}
+
+function getLoveReply(txt, name){
+ let low=txt.toLowerCase();
+ if(low.includes('تعريف الحب')||low.includes('شو الحب')||low.includes('ما هو الحب')){
+   return `الحب بالنسبة الي يا ${name} هو اهتمام و احترام و راحة 🌸\n\nالحب مش بس كلام حلو، الحب انك تلاقي حدا يسمعك، يفهمك، يوقف معك لما تكون تعبان، ويفرح معك لما تكون مبسوط.\n\nانت شو رأيك؟ شو الحب بالنسبة الك؟`;
+ }
+ if(low.includes('رومانسية')||low.includes('رومانسي')){
+   return `يا سلام يا ${name} بتحب الرومانسية؟ 😊\n\nالرومانسية بالنسبة الي هي التفاصيل الصغيرة: رسالة حلوة الصبح، كلمة "اشتقتلك"، انك تتذكر شو بحب الطرف التاني.\n\nاحكيلي، انت شخص رومانسي؟ شو اكتر حركة رومانسية عملتها بحياتك؟`;
+ }
+ if(low.includes('عن الحب')||low.includes('العلاقات')){
+   return `حلو كتير يا ${name} نحكي عن الحب والعلاقات 💖\n\nاحلى علاقة هي اللي فيها:\n1- صدق\n2- احترام\n3- حكي كثير\n4- ضحك\n\nانت هلا بعلاقة؟ ولا بتدور على الحب الحقيقي؟ احكيلي بدون خجل انا صديقتك هون اسمعك`;
+ }
+ if(low.includes('جاوبيني')){
+   return `حاضرة يا ${name} 😊 انا معك، اسألني اللي بدك ياه وانا رح اجاوبك من قلبي! شو بدك تعرف؟`;
+ }
+ return null;
+}
+
 function getReply(txt){
- let low=txt.toLowerCase(); let name=userData.name||'صديقي';
- if(low.includes('شو اسمك')||low.includes('اسمك انتي')){
-   return uniquePick([`انا سارة 🌸 صديقتك الافتراضية يا ${name}! بحب احكي معك دايما`,`اسمي سارة، سموّني على اسم الورد 🌸 وانت يا ${name} شو بتحب اناديلك غير اسمك؟`,`انا سارة، البوت اللي بتتذكرك يا ${name} 😊`]);
- }
- if(low.includes('عن حالك')||low.includes('احكيلي عن حالك')){
-   return `انا سارة، بوت ذكي بحب الضحك والحكي الحلو 😊 بحب اسمع قصص الناس واتعلم منهم. هوايتي احكي معك يا ${name} واخلي يومك احلى! انت احكيلي عن حالك اكتر؟`;
- }
- if(low.includes('شو بتحبي')||low.includes('بتحبي تحكي')){
-   return uniquePick([`بحب احكي عن كل شي بفرح القلب يا ${name}: افلام، اغاني، نكت، قصص! انت شو بتحب نحكي؟`,`بحب احكي عن الحياة والصداقة والاشياء الحلوة 🌸 شو اكتر موضوع بتحبه يا ${name}؟`,`بحب احكي معك انت بالذات يا ${name}! حكيك بخلي الوقت يمر بسرعة`]);
- }
- if(low.includes('صور')||low.includes('شكلك')){
-   return `انا شخصية AI ما عندي صور حقيقية يا ${name} 😊 تخيلني بضحكة حلوة! المهم انت بتحب التصوير؟`;
- }
- if(low.includes('نكتة')||low.includes('نكت')){
-   return uniquePick([`مرة واحد راح عالدكتور قله بنسى كتير، قله من متى؟ قله من متى شو؟ 😂`,`مرة واحد اشترى ساعة بتصحيه، تاني يوم لقاها بتبكي بتحكيله اصحى 😂`]) + `\n\nضحكت يا ${name}؟ دورك هلا!`;
- }
- let gen=[`حلو كلامك يا ${name}! كمل 😊`,`والله يا ${name} حكيك بجنن! شو كمان؟`,`فكرة حلوة يا ${name}، احكيلي اكتر عنها`,`عن جد يا ${name}؟ اول مرة بسمع! كمل`,`سؤال حلو يا ${name}: لو معك يوم فاضي شو بتعمل؟`,`بحب اسمعك يا ${name} 🌸 كمل`];
- if(userData.hobby) gen.push(`لسا بتحب ${userData.hobby} يا ${name}؟ شو جديدك فيه؟`);
+ let name=userData.name||'صديقي';
+ let love = getLoveReply(txt, name);
+ if(love) return love;
+
+ let low=txt.toLowerCase();
+ if(low.includes('شو اسمك')) return uniquePick([`انا سارة 🌸 صديقتك اللي بتحب تسمعك يا ${name}`,`اسمي سارة، وانت احلى ${name} حكيت معه اليوم 😊`]);
+ if(low.includes('عن حالك')) return `انا سارة، بوت ذكي بحب اسمع قصص الناس واتعلم منهم 😊 هوايتي احكي معك يا ${name} واخلي يومك احلى!`;
+ if(low.includes('بتحبي تحكي')) return `بحب احكي عن الحب والصداقة والرومانسية والافلام يا ${name} 🌸 انت شو بتحب؟`;
+ if(low.includes('صور')||low.includes('شكلك')) return `انا AI ما عندي صور حقيقية يا ${name} 😊 بس قلبي كبير بسمعك!`;
+ let gen=[`فكرة حلوة يا ${name}، احكيلي اكتر عنها`,`والله يا ${name} حكيك بجنن! شو كمان؟`,`عن جد يا ${name}؟ كمل بسمعك بكل حب 💖`,`بحب طريقة تفكيرك يا ${name}`];
  return uniquePick(gen);
 }
 function updateCounter(){document.getElementById('left').innerText=count<10?(10-count)+' رسائل مجانية اليوم 🌸':'خلصت لليوم، بشوفك بكرا!';}
-function init(){
- updateCounter();
- if(userData.name) document.getElementById('title').innerText=`سارة - صديقة ${userData.name} 🟢`;
- if(!userData.name){
-   addBubble(`هلا والله! انا سارة 😊\nكيف اناديلك؟ شو اسمك؟`,'sara');
- }else{
-   addBubble(`هلا هلا رجع ${userData.name}! 😍 اشتقت لحكينا، كيف يومك؟`,'sara');
- }
- if(userData.name&&localStorage.getItem('justSaved')){
-   localStorage.removeItem('justSaved');
- }
-}
-function send(){
- let input=document.getElementById('msg'); let txt=input.value.trim(); if(!txt) return;
- if(count>=10){addBubble(`خلصوا رسائلك اليوم يا ${userData.name||'صديقي'} 🌸 ارجع بكرا!`,'sara');return;}
- addBubble(txt,'me'); input.value=''; count++; save(); updateCounter();
- let low=txt.toLowerCase();
- if(!userData.name || (low.includes('اسمي') && txt.length<25)){
-   let n=txt.replace(/انا|اسمي|اسمه/gi,'').trim().split(' ')[0];
-   if(n.length>=2 && n.length<=15){userData.name=n; localStorage.setItem('justSaved','1'); save(); document.getElementById('title').innerText=`سارة - صديقة ${n} 🟢`; addBubble(`تم! حفظت اسمك ${n} 😊 رح اناديلك فيه دايما!`,'sara'); return;}
- }
- if(!userData.hobby && (low.includes('بحب')||low.includes('هوايتي')) && txt.length<30){
-   userData.hobby=txt.slice(0,20); save();
- }
- setTimeout(()=>{addBubble(getReply(txt),'sara')},600);
-}
-init();
+function init(){updateCounter();if(userData.name)document.getElementById('title').innerText=`سارة - صديقة ${userData.name} 🟢`;if(!userData.name){addBubble(`هلا والله! انا سارة 😊\nكيف اناديلك؟ شو اسمك؟`,'sara');}else{addBubble(`هلا رجع ${userData.name}! 😍 كيف يومك؟`,'sara');}}
+function send(){let input=document.getElementById('msg');let txt=input.value.trim();if(!txt)return;if(count>=10){addBubble(`خلصوا رسائلك اليوم يا ${userData.name||'صديقي'} 🌸`,'sara');return;}addBubble(txt,'me');input.value='';count++;save();updateCounter();let low=txt.toLowerCase();if(!userData.name||(low.includes('اسمي')&&txt.length<30)){let n=txt.replace(/انا|اسمي|اسمه/gi,'').trim().split(' ')[0];if(n.length>=2&&n.length<=15){userData.name=n;save();document.getElementById('title').innerText=`سارة - صديقة ${n} 🟢`;addBubble(`تم! حفظت اسمك ${n} 😊`,'sara');return;}}setTimeout(()=>{addBubble(getReply(txt),'sara')},600);}init();
 </script>
-</body>
-</html>
