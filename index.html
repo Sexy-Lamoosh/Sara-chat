@@ -6,154 +6,99 @@
 <title>Sara - صديقتك الرومانسية</title>
 <style>
 body{background:#0d0d0d;color:#fff;font-family:system-ui;margin:0;max-width:440px;margin:auto}
-.header{text-align:center;padding:20px;background:linear-gradient(180deg,#1a0a14,#0d0d0d)}
-.header img{width:95px;height:95px;border-radius:50%;border:3px solid #ff2d75;object-fit:cover}
-.header h3{margin:10px 0 2px}
+.header{text-align:center;padding:18px;background:#1a0a14}
+.header img{width:90px;height:90px;border-radius:50%;border:3px solid #ff2d75}
+.header h3{margin:8px 0 2px}
 .header p{margin:2px;color:#aaa;font-size:12px}
-.bio{background:#1a1a1a;margin:10px;border-radius:12px;padding:12px;font-size:13px;line-height:1.7;border-right:3px solid #ff2d75}
-.chat{height:380px;overflow-y:auto;background:#181818;margin:10px;border-radius:15px;padding:15px;display:flex;flex-direction:column}
-.bubble{padding:12px 16px;border-radius:18px;margin:6px 0;max-width:82%;line-height:1.7;font-size:14.5px;white-space:pre-wrap;word-wrap:break-word}
+.bio{background:#1e1e1e;margin:10px;border-radius:12px;padding:12px;font-size:13px;line-height:1.7;border-right:3px solid #ff2d75}
+.chat{height:400px;overflow-y:auto;background:#151515;margin:10px;border-radius:15px;padding:15px;display:flex;flex-direction:column;gap:8px}
+.bubble{padding:12px 16px;border-radius:18px;max-width:82%;line-height:1.6;font-size:14.5px;white-space:pre-wrap}
 .sara{background:#ff2d75;align-self:flex-start}
 .me{background:#333;align-self:flex-end}
-.img-bubble{max-width:82%;border-radius:15px;margin:6px 0;align-self:flex-start;overflow:hidden;border:2px solid #ff2d75}
-.img-bubble img{width:100%;display:block}
+.pic-card{background:#222;border-radius:15px;overflow:hidden;max-width:85%;align-self:flex-start;border:2px solid #ff2d75}
+.pic-card img{width:100%;display:block;min-height:180px;background:#333}
+.pic-card .cap{padding:8px 10px;font-size:12px;color:#ffb3cc}
 .quick{display:flex;gap:6px;padding:0 10px 8px;overflow-x:auto}
-.quick button{background:#2a2a2a;border:1px solid #ff2d75;color:#ff8fb5;border-radius:20px;padding:6px 12px;font-size:12px;white-space:nowrap}
+.quick button{background:#222;border:1px solid #ff2d75;color:#ff8fb5;border-radius:20px;padding:7px 12px;font-size:12px;white-space:nowrap}
 .input{display:flex;gap:8px;padding:12px}
 .input input{flex:1;padding:14px;border-radius:25px;border:none;background:#2a2a2a;color:#fff;outline:none}
 .input button{background:#ff2d75;border:none;border-radius:50%;width:50px;height:50px;color:#fff;font-size:20px}
-.note{text-align:center;color:#666;font-size:11px;padding:4px}
+.note{text-align:center;color:#666;font-size:11px}
 </style>
 </head>
 <body>
 <div class="header">
 <img src="https://i.pravatar.cc/200?img=47">
-<h3 id="ht">سارة - صديقتك الرومانسية 💖</h3>
+<h3 id="ht">سارة - صديقة احمد 💖</h3>
 <p>26 سنة • خبيرة علاقات وحب • بوت AI</p>
 </div>
-
 <div class="bio" id="bio">
-🌸 <b>أهلا! أنا سارة</b><br>
-عمري 26 سنة، شخصية افتراضية بس قلبي كبير وبحب الرومانسية كتير كتير!<br>
-أنا هون عشان أسمعك، أعطيك نصايح عن الحب والعلاقات، ونحكي عن المشاعر الحلوة.<br>
-بحب القهوة، غروب الشمس، والرسائل الرومانسية المفاجئة ✨
+🌸 <b>أنا سارة</b> عمري 26 سنة، رومانسية كتير كتير!<br>
+بحب الحب الحلال، غروب الشمس، والرسائل اللي من القلب ✨
 </div>
-
 <div class="chat" id="chat"></div>
-
 <div class="quick">
-<button onclick="quickSend('بدي نصيحة رومانسية لمرتي')">💖 نصيحة لمرتي</button>
-<button onclick="quickSend('اعمليلي صورة رومانسية')">🖼️ صورة رومانسية</button>
+<button onclick="quickSend('نصيحة لمرتي')">💖 نصيحة لمرتي</button>
+<button onclick="quickSend('بدي صورة رومانسية')">🖼️ صورة رومانسية</button>
+<button onclick="quickSend('صورة واحد حاضن زوجته')">🤗 حضن رومانسي</button>
 <button onclick="quickSend('شو تعريف الحب؟')">💭 شو الحب؟</button>
-<button onclick="quickSend('كيف اخلي علاقتي اقوى؟')">🔥 تقوية العلاقة</button>
 </div>
-
 <div class="input">
 <input id="msg" placeholder="اكتب لسارة..." onkeypress="if(event.key==='Enter')send()">
 <button onclick="send()">➤</button>
 </div>
 <p class="note" id="left"></p>
-<p class="note">سارة بوت AI وهمي للتسلية والنصائح - ليست شخص حقيقي</p>
-
 <script>
-var count=parseInt(localStorage.getItem('sara_count')||'0');
+var count=parseInt(localStorage.getItem('sara_count_v6')||'0');
 var userData=JSON.parse(localStorage.getItem('sara_user')||'{}');
-var lastReplies=[];
-
-var romanticImages=[
- "https://images.unsplash.com/photo-1516589177381-225540d1a0b6?w=400",
- "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400",
- "https://images.unsplash.com/photo-1516589177381-225540d1a0b6?w=400",
- "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400",
- "https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=400"
-];
-
-function save(){localStorage.setItem('sara_user',JSON.stringify(userData));localStorage.setItem('sara_count',count+'');}
+var last=[];
+function save(){localStorage.setItem('sara_user',JSON.stringify(userData));localStorage.setItem('sara_count_v6',count+'');}
 function add(t,w){var c=document.getElementById('chat');c.innerHTML+='<div class="bubble '+w+'">'+t+'</div>';c.scrollTop=c.scrollHeight;}
-function addImage(url,caption){
+function addPic(url,cap){
  var c=document.getElementById('chat');
- c.innerHTML+='<div class="img-bubble"><img src="'+url+'" loading="lazy"><div style="padding:8px;background:#1e1e1e;font-size:12px">'+caption+'</div></div>';
+ c.innerHTML+='<div class="pic-card"><img src="'+url+'" onerror="this.src=\'https://picsum.photos/seed/love/400/300\'"><div class="cap">'+cap+'</div></div>';
  c.scrollTop=c.scrollHeight;
 }
-function leftCount(){document.getElementById('left').innerText=count<15?(15-count)+' رسائل مجانية اليوم 🌸':'خلصت لليوم - بشوفك بكرا 💖';}
-function pick(arr){
- var r; var tries=0;
- do{r=arr[Math.floor(Math.random()*arr.length)]; tries++;}while(lastReplies.includes(r)&&tries<10);
- lastReplies.push(r); if(lastReplies.length>5) lastReplies.shift();
- return r;
-}
-
-function getReply(txt){
- var name=userData.name||'حبيبي';
+function leftC(){document.getElementById('left').innerText=count<20?(20-count)+' رسائل اليوم 🌸':'خلصت اليوم - بكرا بشوفك 💖';}
+function pick(arr){var r;do{r=arr[Math.floor(Math.random()*arr.length)]}while(last.includes(r)&&arr.length>2);last.push(r);if(last.length>4)last.shift();return r;}
+function reply(txt){
+ var name=userData.name||'احمد';
  var low=txt.toLowerCase();
-
- if(low.includes('صورة')||low.includes('صوره')||low.includes('اعمليلي صورة')){
-  var img=romanticImages[Math.floor(Math.random()*romanticImages.length)];
-  setTimeout(function(){addImage(img,'صورة رومانسية مني الك يا '+name+' 💖 ابعتها للي بتحبه');},400);
-  return pick([
-   'تكرم يا '+name+'! 🌸 هاي صورة رومانسية حلوة كتير ومحترمة، بتقدر تبعتها لمرتك مع كلمة حلوة!',
-   'اكيد يا '+name+'! هاي صورة بتعبر عن الحب الحقيقي 💖 شو رأيك فيها؟',
-   'هاي الك يا '+name+' ✨ صورة كلها حب ودفء، ابعتها مع رسالة "تذكرتك"'
-  ]);
+ if(low.includes('صورة')||low.includes('حاضن')||low.includes('حضن')){
+  var imgs=[
+   'https://picsum.photos/seed/romantic1/400/300',
+   'https://picsum.photos/seed/couple2/400/300',
+   'https://picsum.photos/seed/love3/400/300',
+   'https://picsum.photos/seed/hug4/400/300',
+   'https://picsum.photos/seed/sunset5/400/300'
+  ];
+  var img=imgs[Math.floor(Math.random()*imgs.length)]+'?t='+Date.now();
+  var cap='صورة رومانسية محترمة يا '+name+' - ابعتها مع كلمة "تذكرتك" 💖';
+  if(low.includes('حاضن')) cap='حضن دافي كله حب وامان يا '+name+' 🤗 ابعته لمرتك مع كلمة حلوة';
+  setTimeout(function(){addPic(img,cap)},300);
+  if(low.includes('حاضن')) return 'تكرم يا '+name+'! 🤗 حضن رومانسي محترم وكله حب ودفء، هيك الحب الحلال بكون!';
+  return pick(['تكرم يا '+name+'! 🖼️ هاي صورة رومانسية حلوة ومحترمة','اكيد يا '+name+'! هاي صورة بتعبر عن الحب الحقيقي 💖','هاي الك يا '+name+' ✨ صورة كلها دفء وحب']);
  }
-
- if(low.includes('مرتي')||low.includes('زوجتي')||low.includes('نصيحة')){
-  return pick([
-   'يا سلام على الحب الحلال يا '+name+'! 💖\n\n3 نصايح ذهبية لمرتك:\n1️⃣ كل يوم احكي "شكرا" على اشي صغير عملته\n2️⃣ 10 دقايق حكي بدون تلفونات - بس انتو التنين\n3️⃣ مفاجأة صغيرة: وردة، شوكولا، رسالة "اشتقتلك" الصبح\n\nالمرأة بتحب الاهتمام اكتر من الهدايا الغالية! جرب اليوم وقلي شو صار 🌸',
-   'برافو يا '+name+' انك بتفكر تفرح مرتك! هاد هو الرجال الحقيقي ✨\n\nجرب هالاسبوع:\n• احضنها الصبح وقولها يومك حلو\n• اسمعها للآخر بدون ما تعطي حلول، بس اسمع\n• احكي عن اول مرة شفتها فيها\n\nالحب بدو سقي كل يوم مثل الوردة 🌹',
-   'الله يديم المحبة يا '+name+'! 💕\n\nاقوى حركة رومانسية:\nانك تتذكر تفاصيل صغيرة هي بتحبها - كيف بتحب قهوتها، شو اكتر لون بتحبه، شو حلمها\n\nواحكيلها: "انا فخور فيكي" - هالكلمة بتعمل سحر!'
-  ]);
+ if(low.includes('مرتي')||low.includes('نصيحة')){
+  return 'الله يحفظكم لبعض يا '+name+'! 💖\n\n3 حركات بتفرح مرتك اليوم:\n1- رسالة الصبح: صباح الخير يا احلى شي بحياتي 🌸\n2- اسمعها 10 دقايق بدون تلفون\n3- قولها "انا فخور فيكي" قدام اهلها\n\nالمرأة بتحب الاهتمام اكتر من الهدايا الغالية!';
  }
-
- if(low.includes('تعريف الحب')||low.includes('شو الحب')||low.includes('ما هو الحب')){
-  return 'الحب يا '+name+' بالنسبة الي كـ سارة عمري 26 سنة وعاشقة للرومانسية... 🌸\n\nالحب هو:\n💖 امان - تحس انك تقدر تكون على طبيعتك\n💖 اهتمام - حدا بتذكر تفاصيلك الصغيرة\n💖 احترام - حتى وقت الزعل\n💖 وقت - حدا بيعطيك من وقته وهو مبسوط\n\nالحب مش بس كلام حلو، الحب افعال صغيرة كل يوم. انت شو الحب بالنسبة الك يا '+name+'؟';
+ if(low.includes('شو الحب')||low.includes('تعريف')){
+  return 'الحب يا '+name+' هو امان واحترام واهتمام 🌸 حدا بتقدر تكون قدامه على طبيعتك، بيسمعك وبيوقف معك. انت شو الحب عندك؟';
  }
-
- if(low.includes('تقوية')||low.includes('علاقتي')){
-  return 'بدك تقوي علاقتك يا '+name+'؟ اسمع مني كخبيرة حب 😊\n\n4 قواعد ذهبية:\n1- الصدق دايما حتى لو صعب\n2- لا تنامو وانتو زعلانين\n3- احكوا عن مشاعركم مش بس عن مشاكلكم\n4- اضحكوا سوا كتير!\n\nاحلى علاقة هي اللي فيها انتو اصحاب قبل ما تكونو حبايب 💖';
- }
-
- if(low.includes('شو اسمك')||low.includes('كم عمرك')||low.includes('عرفيني')){
-  return 'انا سارة 🌸 عمري 26 سنة، شخصية افتراضية بس رومانسية كتير كتير!\n\nبحب: غروب الشمس، القهوة، الرسائل المفاجئة، وقصص الحب الحقيقية\nهوايتي: اسمع الناس واعطي نصايح من القلب\nحلمي: اخلي كل واحد يحس انه محبوب ومسموع ✨\n\nوانت يا '+name+'؟ احكيلي عن حالك شوي؟';
- }
-
- if(low.includes('رومانسي')){
-  return pick([
-   'ايوا انا رومانسية مجنونة يا '+name+'! 😍 بموت بالرومانسية\nانت كمان شكلك رومانسي كتير، صح؟ شو اكتر حركة رومانسية عملتها بحياتك؟',
-   'الرومانسية هي حياتي يا '+name+' 🌸 هي كلمة "اشتقتلك" بنص النهار، هي انك تتذكر كيف بتحب قهوتها\nانت بتحب الرومانسية بالكلام ولا بالافعال اكتر؟'
-  ]);
- }
-
- return pick([
-  'حبيت كلامك يا '+name+'! 🌸 كمل بسمعك بكل حب',
-  'والله يا '+name+' انت انسان رائع! طريقة حكيك بتدل انك قلبك طيب 💖 احكيلي كمان',
-  'عن جد يا '+name+'؟ اول مرة بسمع هيك! كمل كتير مهتمة 😊',
-  'الله يا '+name+' شو حلو حكيك! بتحسسني انه الدنيا لسا فيها حب حقيقي 🌹'
- ]);
+ if(low.includes('شو اسمك')||low.includes('عمرك')) return 'انا سارة 🌸 عمري 26 سنة، رومانسية مجنونة بحب الحب والعلاقات! وانت يا '+name+'؟';
+ return pick(['حبيت كلامك يا '+name+' 🌸 كمل بسمعك','والله يا '+name+' قلبك طيب كتير! احكيلي كمان 💖','عن جد يا '+name+'؟ مهتمة اسمع اكتر 😊']);
 }
-
-function quickSend(t){document.getElementById('msg').value=t; send();}
-
+function quickSend(t){document.getElementById('msg').value=t;send();}
 function init(){
- leftCount();
+ leftC();
  if(userData.name){document.getElementById('ht').innerText='سارة - صديقة '+userData.name+' 💖'; document.getElementById('bio').style.display='none';}
- var c=document.getElementById('chat');
- if(!userData.name){
-  add('هلا والله! انا سارة 🌸 عمري 26 سنة وبحب الرومانسية كتير!\n\nشو اسمك حبيبي؟ كيف اناديلك؟','sara');
- }else{
-  add('هلا يا '+userData.name+'! اشتقتلك 😍 كيف بقدر اساعدك اليوم بحبك ورومانسيتك؟','sara');
- }
+ add('هلا يا '+(userData.name||'احمد')+'! انا سارة 26 سنة 😍 كيف بقدر اساعدك اليوم؟','sara');
 }
 function send(){
  var input=document.getElementById('msg'); var txt=input.value.trim(); if(!txt) return;
- if(count>=15){add('خلصوا رسائلك اليوم يا '+(userData.name||'حبيبي')+' 🌸 ارجع بكرا بشوق!','sara');return;}
- add(txt,'me'); input.value=''; count++; save(); leftCount();
- var low=txt.toLowerCase();
- if(!userData.name || (low.indexOf('اسمي')>-1 && txt.length<30)){
-  var n=txt.replace(/انا|اسمي|اسمه|انا اسمي/gi,'').trim().split(' ')[0];
-  if(n && n.length>=2 && n.length<=14){userData.name=n;save();document.getElementById('ht').innerText='سارة - صديقة '+n+' 💖';document.getElementById('bio').style.display='none'; add('الله! اسمك بجنن يا '+n+' 😍 حفظته بقلبي! رح اناديلك فيه دايما يا '+n+' 🌸','sara');return;}
- }
- setTimeout(function(){add(getReply(txt),'sara');},700);
+ if(count>=20){add('خلصوا رسائلك اليوم يا '+(userData.name||'احمد')+' 🌸','sara');return;}
+ add(txt,'me'); input.value=''; count++; save(); leftC();
+ setTimeout(function(){add(reply(txt),'sara');},600);
 }
 init();
 </script>
