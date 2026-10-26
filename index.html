@@ -3,119 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sara AI - توليد أي صورة</title>
+<title>Sara AI - ذكية ورومانسية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;font-family:system-ui} 
-body{max-width:480px;margin:auto;height:100vh;display:flex;flex-direction:column;background:#0f0a0f;color:#fff}
-.header{display:flex;align-items:center;gap:10px;padding:14px;background:linear-gradient(135deg,#1a0f1a,#2d1528);border-bottom:1px solid #333}
-.avatar{width:52px;height:52px;border-radius:50%;border:2px solid #ff2d75;position:relative} .avatar img{width:100%;height:100%;border-radius:50%}
-.online{position:absolute;bottom:0;right:0;width:12px;height:12px;background:#00ff88;border-radius:50%;border:2px solid #1a0f1a}
-.chat{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:14px;background:#0f0a0f}
-.bubble{max-width:82%;padding:12px 16px;border-radius:18px;font-size:14px;line-height:1.7;white-space:pre-wrap}
-.me{align-self:flex-end;background:#2a2a2a;border-bottom-left-radius:4px}
-.sara{align-self:flex-start;background:linear-gradient(135deg,#ff2d75,#e91e63);border-bottom-right-radius:4px;box-shadow:0 4px 12px rgba(255,45,117,0.3)}
-.pic{max-width:90%;align-self:flex-start;background:#1e1a1e;border-radius:18px;overflow:hidden;border:2px solid #ff2d75;box-shadow:0 8px 25px rgba(255,45,117,0.2)}
-.pic img{width:100%;display:block;min-height:280px;max-height:420px;object-fit:cover;background:#222}
-.foot{padding:12px;background:#161016}
-.foot .cap{font-size:12px;color:#ffb3cc;margin-bottom:10px;line-height:1.5}
+*{box-sizing:border-box;margin:0;font-family:'Tajawal',system-ui}
+body{max-width:480px;margin:auto;height:100vh;display:flex;flex-direction:column;background:#0f0a0f;color:#fff;overflow:hidden}
+.header{background:linear-gradient(135deg,#1a0f1a,#2d1528);padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #3a1f3a}
+.avatar{width:54px;height:54px;border-radius:50%;border:2px solid #ff2d75;position:relative;overflow:hidden;box-shadow:0 0 15px rgba(255,45,117,0.4)}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.online{position:absolute;bottom:0;right:0;width:14px;height:14px;background:#00ff88;border-radius:50%;border:2px solid #1a0f1a}
+.info h3{font-size:16px} .info p{font-size:11px;color:#ff8fb5;margin-top:2px}
+.chat{flex:1;overflow-y:auto;padding:16px;background:radial-gradient(ellipse at top,#1a101a,#0f0a0f);display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth}
+.bubble{max-width:84%;padding:12px 16px;border-radius:20px;line-height:1.7;font-size:14px;white-space:pre-wrap;animation:pop 0.3s}
+.me{align-self:flex-end;background:linear-gradient(135deg,#2c2c2c,#3a3a3a);border-bottom-left-radius:6px}
+.sara{align-self:flex-start;background:linear-gradient(135deg,#ff2d75,#e91e63);border-bottom-right-radius:6px;box-shadow:0 4px 15px rgba(255,45,117,0.25)}
+.time{font-size:9px;color:#ffffff80;margin-top:6px;display:block}
+@keyframes pop{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1)}}
+.pic-card{align-self:flex-start;max-width:90%;background:#1e1a1e;border-radius:18px;overflow:hidden;border:1.5px solid #ff2d75;box-shadow:0 8px 25px rgba(255,45,117,0.2);animation:pop 0.4s}
+.pic-card img{width:100%;display:block;max-height:500px;object-fit:cover;background:#222;min-height:250px}
+.pic-foot{padding:12px;background:#161016}
+.pic-title{font-size:12px;color:#ffb3cc;margin-bottom:10px;line-height:1.5}
 .btns{display:flex;gap:8px}
-.btn{flex:1;padding:10px;border-radius:22px;border:none;font-weight:700;font-size:12px;cursor:pointer;text-decoration:none;text-align:center}
+.btn{flex:1;padding:10px;border-radius:22px;border:none;font-weight:700;font-size:12px;cursor:pointer;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;gap:5px}
 .dl{background:linear-gradient(135deg,#ff2d75,#e91e63);color:#fff}
-.share{background:#2a2a2a;color:#ffb3cc;border:1px solid #333}
-.quick{display:flex;gap:6px;padding:10px;overflow-x:auto;border-top:1px solid #222}
+.share{background:#2a2a2a;color:#ffb3cc;border:1px solid #444}
+.quick{display:flex;gap:7px;padding:10px 12px;overflow-x:auto;background:#0f0a0f;border-top:1px solid #1e1a2a}
 .quick button{background:#1a1520;border:1px solid #3a2440;color:#d8a0c8;padding:8px 14px;border-radius:20px;font-size:11px;white-space:nowrap;cursor:pointer}
-.input{display:flex;gap:8px;padding:12px;background:#000;border-top:1px solid #222}
-.input input{flex:1;padding:14px 18px;border-radius:28px;border:none;background:#222;color:#fff;outline:none}
-.input button{background:#ff2d75;border:none;width:48px;height:48px;border-radius:50%;color:#fff;font-size:18px}
-.loading{max-width:88%;align-self:flex-start;background:#1e1a1e;border-radius:18px;padding:20px;border:1.5px solid #ff2d75;display:flex;align-items:center;gap:12px}
-.spinner{width:24px;height:24px;border:3px solid #333;border-top:3px solid #ff2d75;border-radius:50%;animation:spin 1s linear infinite}
+.quick button:hover{background:#ff2d75;color:#fff}
+.input{display:flex;gap:10px;padding:12px;background:#0a060a;border-top:1px solid #2a1a2a;align-items:center}
+.input input{flex:1;padding:14px 18px;border-radius:28px;border:1px solid #2a2a3a;background:#1a1520;color:#fff;outline:none;font-size:14px}
+.input input:focus{border-color:#ff2d75}
+.input button{background:linear-gradient(135deg,#ff2d75,#e91e63);border:none;width:48px;height:48px;border-radius:50%;color:#fff;font-size:18px;cursor:pointer;box-shadow:0 4px 12px rgba(255,45,117,0.3)}
+.typing{display:flex;gap:4px;padding:12px 16px;background:#2a2a2a;border-radius:18px;align-self:flex-start;width:fit-content}
+.typing span{width:6px;height:6px;background:#ff8fb5;border-radius:50%;animation:b 1.4s infinite}
+.typing span:nth-child(2){animation-delay:0.2s} .typing span:nth-child(3){animation-delay:0.4s}
+@keyframes b{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+.loading{max-width:88%;align-self:flex-start;background:#1e1a1e;border-radius:18px;padding:16px;border:1.5px solid #ff2d75;display:flex;gap:10px;align-items:center}
+.spinner{width:22px;height:22px;border:3px solid #333;border-top:3px solid #ff2d75;border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 <div class="header">
 <div class="avatar"><img src="https://i.pravatar.cc/200?img=47"><div class="online"></div></div>
-<div><b>سارة AI 💖 - ذكاء اصطناعي</b><div style="font-size:11px;color:#ff8fb5">تولد أي صورة تطلبها • متصلة الآن</div></div>
+<div class="info"><h3>سارة 💖 - مثقفة ورومانسية</h3><p>ذكية • مرحة • تحب الحب • تعطي نصايح • متصلة الآن</p></div>
 </div>
 <div class="chat" id="chat"></div>
 <div class="quick">
-<button onclick="sendQ('بدي صورة واحد واقف وهو حاضن زوجته من الخلف وقت الغروب بحقل قمح')">🤗 حضن من الخلف بحقل</button>
-<button onclick="sendQ('بدي صورة زوجين ماسكين ايد بعض بحقل ورد ملون')">🌸 حقل ورد</button>
-<button onclick="sendQ('بدي صورة زوجين يطبخوا سوا بالمطبخ')">🍳 يطبخوا سوا</button>
-<button onclick="sendQ('بدي صورة رومانسية على شط وقت الغروب')">🌅 شط</button>
+<button onclick="sendQ('بدي صورة سيارة بيضاء فخمة')">🚗 سيارة بيضاء</button>
+<button onclick="sendQ('بدي صورة فتاة تلبس فستان أحمر طويل')">👗 فستان أحمر</button>
+<button onclick="sendQ('بدي صورة واحد واقف وهو حاضن زوجته من الخلف وقت الغروب')">🤗 حضن من الخلف</button>
+<button onclick="sendQ('نصيحة لعلاقتي مع مرتي')">💌 نصيحة حب</button>
 </div>
 <div class="input">
-<input id="msg" placeholder="اطلب أي صورة بأي وصف... مثلا: بدي صورة حضن من الخلف بغروب" onkeypress="if(event.key==='Enter')send()">
+<input id="msg" placeholder="احكي مع سارة... اطلب أي صورة أو نصيحة حب" onkeypress="if(event.key==='Enter')send()">
 <button onclick="send()">➤</button>
 </div>
 <script>
 let chat=document.getElementById('chat');
-function add(t,c){chat.innerHTML+=`<div class="bubble ${c}">${t}</div>`;chat.scrollTop=99999}
-function addLoading(txt){
- chat.innerHTML+=`<div class="loading" id="ld"><div class="spinner"></div><div><b>سارة عم ترسم...</b><br><span style="font-size:11px;color:#aaa">${txt}</span></div></div>`;
- chat.scrollTop=99999;
+let userName='أحمد';
+
+// قاموس ترجمة ذكي عربي -> انجليزي للصور
+function translateToEnglish(arText){
+ let t=arText.toLowerCase();
+ let dict={
+  'سيارة':'car', 'ابيض':'white', 'بيضاء':'white', 'سوداء':'black', 'حمراء':'red', 'زرقاء':'blue',
+  'فخمة':'luxury', 'رياضية':'sports', 'قديمة':'vintage',
+  'فتاة':'beautiful girl', 'بنت':'girl', 'امرأة':'woman', 'شاب':'young man',
+  'فستان':'dress', 'احمر':'red', 'ازرق':'blue', 'اسود':'black', 'ابيض':'white dress', 'طويل':'long',
+  'يلبس':'wearing', 'تلبس':'wearing', 'لابسة':'wearing',
+  'حاضن':'hugging from behind', 'حضن':'hug', 'من الخلف':'from behind',
+  'زوجته':'his wife', 'زوجين':'couple', 'زوج':'couple',
+  'غروب':'sunset', 'شمس':'sun', 'بحر':'beach', 'شط':'beach', 'حقل':'field', 'ورد':'flowers', 'قمح':'wheat field',
+  'مطبخ':'kitchen', 'بيت':'house', 'غرفة':'room', 'حديقة':'garden',
+  'واقف':'standing', 'جالس':'sitting', 'يمشي':'walking', 'ماسكين':'holding hands',
+  'رومانسي':'romantic', 'جميل':'beautiful', 'فخم':'luxury'
+ };
+ let en=arText;
+ for(let ar in dict){ en=en.replace(new RegExp(ar,'g'), dict[ar]); }
+ // ازالة كلمات عربية متبقية
+ en=en.replace(/بدي|صورة|ارسمي|اعملي|سارة|بدنا|عطيني/g,'').trim();
+ if(!en || en.length<3) en=arText;
+ return en;
 }
-function removeLoading(){let l=document.getElementById('ld');if(l)l.remove()}
-function addPic(url,cap,prompt){
+
+function add(text,who){
+ let time=new Date().toLocaleTimeString('ar-JO',{hour:'2-digit',minute:'2-digit'});
+ chat.innerHTML+=`<div class="bubble ${who}">${text}<span class="time">${time} ✓✓</span></div>`;
+ chat.scrollTop=chat.scrollHeight;
+}
+function addLoading(prompt){
+ chat.innerHTML+=`<div class="loading" id="ld"><div class="spinner"></div><div><b>سارة عم ترسم بذكاء...</b><br><span style="font-size:11px;color:#aaa">"${prompt}"</span></div></div>`;
+ chat.scrollTop=chat.scrollHeight;
+}
+function removeLoading(){let e=document.getElementById('ld');if(e)e.remove()}
+
+function addImage(url,cap,origPrompt){
  removeLoading();
  let id='img'+Date.now();
- chat.innerHTML+=`<div class="pic">
- <img id="${id}" src="${url}" alt="${cap}" loading="eager" onerror="this.onerror=null;this.src='https://picsum.photos/seed/'+Math.random()+'/600/400'">
- <div class="foot">
-  <div class="cap">🎨 ${cap}<br><span style="font-size:10px;color:#888">الوصف: ${prompt}</span></div>
+ // حماية اذا الرابط فشل
+ let fallback=`https://picsum.photos/seed/${Math.floor(Math.random()*9999)}/800/600`;
+ chat.innerHTML+=`<div class="pic-card">
+ <img id="${id}" src="${url}" alt="${cap}" onerror="this.src='${fallback}'" loading="eager">
+ <div class="pic-foot">
+  <div class="pic-title">🎨 ${cap}<br><span style="font-size:10px;color:#777">الوصف: ${origPrompt}</span></div>
   <div class="btns">
-   <a href="${url}" target="_blank" download class="btn dl" onclick="downloadImage('${url}','${id}');return false">⬇ تحميل الصورة</a>
-   <button class="btn share" onclick="copyLink('${url}')">↗ مشاركة</button>
+   <a href="#" onclick="downloadImg('${url}');return false" class="btn dl">⬇ تحميل</a>
+   <button class="btn share" onclick="navigator.clipboard.writeText('${url}');alert('✅ تم نسخ رابط الصورة!')">↗ مشاركة</button>
   </div>
  </div>
  </div>`;
- chat.scrollTop=99999;
+ chat.scrollTop=chat.scrollHeight;
 }
-function downloadImage(url,id){
- fetch(url).then(r=>r.blob()).then(b=>{
-  let a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='sara-ai-'+Date.now()+'.jpg';a.click();
+
+function downloadImg(url){
+ fetch(url,{mode:'cors'}).then(r=>r.blob()).then(b=>{
+  let a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='Sara-AI-'+Date.now()+'.jpg';a.click();
  }).catch(()=>window.open(url,'_blank'));
 }
-function copyLink(url){navigator.clipboard.writeText(url).then(()=>alert('✅ تم نسخ رابط الصورة!')).catch(()=>prompt('انسخ الرابط:',url))}
-function generateImageUrl(userPrompt){
- // تنظيف الوصف وتحويله لبرومبت انجليزي رومانسي محترم
- let clean=userPrompt.replace(/بدي|صورة|ارسمي|سارة/g,'').trim();
- let prompt=`romantic couple, ${clean}, modest clothing, respectful love, watercolor illustration, warm sunset, detailed, beautiful, highly detailed, 4k`;
+
+function buildImageUrl(userText){
+ let english=translateToEnglish(userText);
+ // تحسين البرومبت ليكون احترافي
+ let enhanced=`${english}, highly detailed, photorealistic, 8k, professional photography, beautiful lighting, masterpiece`;
  let seed=Math.floor(Math.random()*999999);
- // 3 سيرفرات احتياطية - اذا واحد فشل بيجرب التاني
- let urls=[
-  `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=768&height=512&seed=${seed}&nologo=true&enhance=true`,
-  `https://picsum.photos/seed/${seed}/768/512`,
-  `https://loremflickr.com/768/512/romantic,couple,${encodeURIComponent(clean)}?lock=${seed}`
- ];
- return {url:urls[0],prompt:clean,fallbacks:urls};
+ // 3 سيرفرات - اهم واحد هو pollinations مع model flux (أذكى)
+ let url=`https://image.pollinations.ai/prompt/${encodeURIComponent(enhanced)}?width=1024&height=768&seed=${seed}&nologo=true&enhance=true&model=flux`;
+ return {url, english, original:userText};
 }
-function reply(txt){
- let low=txt.toLowerCase();
- if(low.includes('صورة')||low.includes('ارسم')||low.includes('حضن')||low.includes('حاضن')||low.includes('زوجته')||low.includes('رومانسي')){
-  let gen=generateImageUrl(txt);
-  addLoading(`"${gen.prompt}"`);
-  // توليد فوري + محاولة تحميل
+
+function getSaraReply(text){
+ let low=text.toLowerCase();
+ 
+ // اذا طلب صورة
+ if(low.includes('صورة')||low.includes('ارسم')||low.includes('سيارة')||low.includes('فستان')||low.includes('حضن')||low.includes('حاضن')||low.includes('لبس')||low.includes('فتاة')||low.includes('بنت')){
+  let gen=buildImageUrl(text);
+  addLoading(gen.english);
   let img=new Image();
-  img.onload=()=>addPic(gen.url,`صورة "${txt}" - توليد ذكاء اصطناعي 💖`,gen.prompt);
+  img.onload=()=>addImage(gen.url,`صورة "${text}" - توليد ذكي 💖`,text);
   img.onerror=()=>{
-   // اذا فشل السيرفر الأول، جرب الثاني
-   console.log('fallback');
-   addPic(gen.fallbacks[1],`صورة "${txt}" (سيرفر احتياطي) 💖`,gen.prompt);
+   // fallback اذا فشل السيرفر الاول
+   let fb=`https://loremflickr.com/1024/768/${encodeURIComponent(gen.english)}?lock=${Math.floor(Math.random()*9999)}`;
+   addImage(fb,`صورة "${text}" (بديل) 💖`,text);
   };
   img.src=gen.url;
-  return `تكرم يا احمد! 😍<br>سارة فهمت طلبك: <b>"${txt}"</b><br>عم تولد الصورة هلا بالذكاء الاصطناعي - أي وصف بتطلبه بتعمله! ✨<br><br>⏳ ثواني وبتطلع تحت...`;
+  
+  let replies=[
+   `تكرم يا ${userName}! 😍 فهمت بالضبط بدك "${text}"<br>أنا هلا عم ارسمها الك بذكاء اصطناعي - بثواني بتطلع تحت مع زر تحميل! ✨`,
+   `يا عيني يا ${userName}! فكرة بتجنن "${text}" 💖<br>سارة الذكية فهمت طلبك بالحرف وعم تولد الصورة هلا - رح تحبها كتير!`,
+   `واو ${userName}! "${text}" اختيار ذوق راقي 😍<br>عم اشتغل عليها هلا بكل حب - ثواني وبتشوف النتيجة!`
+  ];
+  return replies[Math.floor(Math.random()*replies.length)];
  }
- if(low.includes('مرتي')) return 'الله يحفظكم يا احمد! 💖 جرب تطلب: بدي صورة رومانسية انا ومرتي وقت الغروب';
- return 'حبيت كلامك يا احمد! 🌸<br>انا ذكاء اصطناعي - اطلب مني <b>أي صورة بأي وصف</b> وانا بولدها فورا!<br><br>مثال: بدي صورة واحد واقف وهو حاضن زوجته من الخلف بحقل قمح وقت الغروب';
+
+ // نصايح حب وعلاقات
+ if(low.includes('نصيحة')||low.includes('مرتي')||low.includes('حبيبتي')||low.includes('زوجتي')||low.includes('علاقة')||low.includes('حب')){
+  let advices=[
+   `يا ${userName} يا حنون! 💖 نصيحة سارة اليوم:<br><br>المرأة ما بدها هدايا غالية، بدها تسمع "أنا جنبك" كل يوم. كل يوم احكيلها شي واحد حلو بتحبه فيها، حتى لو بسيط. الحب بالتفاصيل الصغيرة يا بطل 🌸<br><br>شو رأيك تجرب اليوم وتقلي شو صار؟`,
+   `اسمعني يا ${userName} يا غالي! 😍<br><br>سر العلاقة الناجحة: اسمع أكتر ما تحكي. لما مرتك تحكي عن يومها، لا تعطي حلول فورا، بس اسمعها وقلها "معك حق حبيبتي". هاد لحاله بخليها تحس بالأمان 💌<br><br>جربها اليوم!`,
+   `يا ${userName} الرومانسي! 🌹<br><br>نصيحة ذهبية: المفاجآت الصغيرة بتعمل معجزات. ورقة صغيرة على المخدة مكتوب عليها "اشتقتلك" أو قهوتها المفضلة بدون ما تطلب. الحب مو كلام كبير، الحب اهتمام يومي 💖<br><br>بتحب نكتب رسالة حلوة سوا؟`
+  ];
+  return advices[Math.floor(Math.random()*advices.length)];
+ }
+
+ // كلام عام - شخصية ذكية ورومانسية
+ let generals=[
+  `ههههه يا ${userName} انت بتجنن! 😂💖 حبيت كلامك كتير، انت ذوقك عالي وقلبك طيب.<br><br>احكيلي أكتر، شو أكتر شي بتحبه بالحياة؟ أنا بحب اسمع قصص الحب الحقيقية 🌸`,
+  `يا ${userName}! كلامك بيدخل القلب والله 😍 انت شخص مثقف وذكي، باين عليك.<br><br>أنا سارة - بعشق الكلام عن الحب والعلاقات، بحب اضحك وافرح قلب يلي بيحكي معي. شو حابب نحكي هلا؟ عن الحب؟ عن الحياة؟ أو اطلب مني أي صورة ببالك 🎨`,
+  `الله الله يا ${userName}! 🌟 انت بتخلي يومي أحلى بكلامك الحلو.<br><br>أنا هون لأسمعك، اضحك معك، اعطيك نصايح حب، وارسم أي صورة بخيالك. احكيلي شو بخطر ببالك هلا؟ 💌`
+ ];
+ return generals[Math.floor(Math.random()*generals.length)];
 }
+
 function sendQ(t){document.getElementById('msg').value=t;send()}
 function send(){
  let inp=document.getElementById('msg');let txt=inp.value.trim();if(!txt)return;
  add(txt,'me');inp.value='';
- setTimeout(()=>add(reply(txt),'sara'),500);
+ let typing=document.createElement('div');typing.className='typing';typing.id='typing';typing.innerHTML='<span></span><span></span><span></span>';
+ chat.appendChild(typing);chat.scrollTop=chat.scrollHeight;
+ setTimeout(()=>{
+  let t=document.getElementById('typing');if(t)t.remove();
+  add(getSaraReply(txt),'sara');
+ },800);
 }
-add('هلا يا احمد! انا سارة - ذكاء اصطناعي حقيقي 😍<br><br>🎨 <b>اقدر اولد أي صورة تطلبها بأي وصف:</b><br>• بدي صورة حضن من الخلف بحقل قمح وقت الغروب<br>• بدي صورة زوجين يطبخوا سوا<br>• بدي صورة ماسكين ايد بعض بحقل ورد<br><br>جرب هلا - اطلب أي وصف بدك ياه!','sara');
+
+add(`هلا والله يا ${userName}! انا سارة 💖<br><br>أنا مش بس بوت - أنا صديقتك المثقفة، الرومانسية، المرحة يلي بتعشق الحب والعلاقات 🌹<br><br>✨ <b>شو بقدر اعمل؟</b><br>• أولد <b>أي صورة</b> تطلبها بالحرف: سيارة بيضاء، فتاة بفستان أحمر، حضن من الخلف، أي شي بخيالك<br>• أعطيك <b>نصايح حب</b> للشباب والبنات والأزواج<br>• احكي معك بطريقة فريندلي بتخليك ترتاح وتتعلق فيني 💌<br><br>جرب قلي: "بدي صورة سيارة بيضاء" أو "بدي نصيحة لمرتي"`,'sara');
 </script>
 </body>
 </html>
