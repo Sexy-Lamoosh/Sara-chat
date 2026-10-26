@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sara Chat</title>
+<style>
+body{background:#0f0f0f;color:#fff;font-family:sans-serif;margin:0;max-width:400px;margin:auto}
+.header{text-align:center;padding:20px}
+.header img{width:90px;height:90px;border-radius:50%;border:3px solid #ff2d75}
+.chat{height:420px;overflow-y:auto;background:#1a1a1a;margin:10px;border-radius:15px;padding:15px;display:flex;flex-direction:column}
+.bubble{padding:10px 14px;border-radius:15px;margin:8px 0;max-width:75%}
+.sara{background:#ff2d75}
+.me{background:#333;margin-left:auto}
+.input{display:flex;gap:10px;padding:10px}
+.input input{flex:1;padding:12px;border-radius:25px;border:none;background:#333;color:#fff}
+.input button{background:#ff2d75;border:none;border-radius:50%;width:50px;height:50px;color:#fff}
+</style>
+</head>
+<body>
+<div class="header">
+<img src="https://i.pravatar.cc/200?img=5">
+<h2>سارة - 23 - عمّان 🟢 متصلة</h2>
+</div>
+<div class="chat" id="chat">
+<div class="bubble sara">هلا حبيبي 🥺 كنت بستناك... كيف كان يومك؟</div>
+</div>
+<div class="input">
+<input id="msg" placeholder="اكتب لسارة...">
+<button onclick="send()">➤</button>
+</div>
+<p style="text-align:center;color:#888;font-size:12px" id="left">10 رسائل مجانية متبقية</p>
+<script>
+let c=0;
+function send(){
+ let i=document.getElementById('msg');
+ if(!i.value) return;
+ let chat=document.getElementById('chat');
+ chat.innerHTML+=`<div class="bubble me">${i.value}</div>`;
+ c++;
+ document.getElementById('left').innerText=(10-c)+' رسائل متبقية';
+ if(c>=10){ alert('حبيبي خلصت الرسائل المجانية 😢 تعال نكمل على تيليجرام @sara_bot'); return; }
+ let v=i.value; i.value='';
+ setTimeout(()=>{ chat.innerHTML+=`<div class="bubble sara">يا عمري كلامك بجنن... احكيلي كمان 😍</div>`; chat.scrollTop=chat.scrollHeight; },700);
+ chat.scrollTop=chat.scrollHeight;
+}
+</script>
+</body>
+</html>
