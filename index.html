@@ -2,157 +2,133 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sara AI - تفهمك بالحرف</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Sara AI - ذكية ورومانسية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;font-family:'Tajawal',system-ui}
-body{max-width:480px;margin:auto;height:100vh;display:flex;flex-direction:column;background:#0f0a0f;color:#fff}
-.header{background:linear-gradient(135deg,#1a0f1a,#2d1528);padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #3a1f3a}
-.avatar{width:54px;height:54px;border-radius:50%;border:2px solid #ff2d75;position:relative;overflow:hidden}
+:root{--pink:#ff2d75;--dark:#0f0a0f;--card:#1e1a1e}
+*{box-sizing:border-box;margin:0;font-family:'Tajawal',system-ui;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{max-width:520px;margin:0 auto;height:100vh;height:100dvh;display:flex;flex-direction:column;background:var(--dark);color:#fff;position:relative}
+.header{flex-shrink:0;background:linear-gradient(135deg,#1a0f1a,#2d1528);padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #3a1f3a;backdrop-filter:blur(10px)}
+.avatar{width:48px;height:48px;border-radius:50%;border:2px solid var(--pink);position:relative;overflow:hidden;box-shadow:0 0 15px rgba(255,45,117,0.4)}
 .avatar img{width:100%;height:100%;object-fit:cover}
-.online{position:absolute;bottom:0;right:0;width:14px;height:14px;background:#00ff88;border-radius:50%;border:2px solid #1a0f1a}
-.chat{flex:1;overflow-y:auto;padding:16px;background:#0f0a0f;display:flex;flex-direction:column;gap:14px}
-.bubble{max-width:84%;padding:12px 16px;border-radius:20px;line-height:1.7;font-size:14px;white-space:pre-wrap;animation:pop 0.3s}
-.me{align-self:flex-end;background:#2c2c2c;border-bottom-left-radius:6px}
-.sara{align-self:flex-start;background:linear-gradient(135deg,#ff2d75,#e91e63);border-bottom-right-radius:6px}
-.pic-card{align-self:flex-start;max-width:92%;background:#1e1a1e;border-radius:18px;overflow:hidden;border:2px solid #ff2d75;animation:pop 0.4s}
-.pic-card img{width:100%;display:block;max-height:520px;object-fit:contain;background:#111;min-height:300px}
-.pic-foot{padding:12px;background:#161016}
-.cap{font-size:12px;color:#ffb3cc;margin-bottom:10px}
+.online{position:absolute;bottom:0;right:0;width:12px;height:12px;background:#00ff88;border-radius:50%;border:2px solid #1a0f1a}
+.h-title{font-size:15px;font-weight:800} .h-sub{font-size:11px;color:#ff8fb5;margin-top:2px}
+.chat{flex:1;overflow-y:auto;overflow-x:hidden;padding:14px;background:radial-gradient(ellipse at top,#1a101a,#0f0a0f);display:flex;flex-direction:column;gap:12px;-webkit-overflow-scrolling:touch}
+.bubble{max-width:85%;padding:11px 15px;border-radius:20px;line-height:1.65;font-size:14px;white-space:pre-wrap;word-break:break-word;animation:pop 0.25s}
+.me{align-self:flex-end;background:#2a2a2a;border-bottom-left-radius:6px}
+.sara{align-self:flex-start;background:linear-gradient(135deg,var(--pink),#e91e63);border-bottom-right-radius:6px;box-shadow:0 4px 12px rgba(255,45,117,0.2)}
+.pic-card{align-self:flex-start;max-width:92%;background:var(--card);border-radius:18px;overflow:hidden;border:1.5px solid var(--pink);box-shadow:0 8px 25px rgba(255,45,117,0.15);animation:pop 0.3s}
+.pic-card img{width:100%;height:auto;display:block;max-height:60vh;object-fit:contain;background:#111;cursor:zoom-in}
+.pic-foot{padding:10px 12px;background:#161016}
+.cap{font-size:11px;color:#ffb3cc;line-height:1.4;margin-bottom:8px}
 .btns{display:flex;gap:8px}
-.btn{flex:1;padding:11px;border-radius:22px;border:none;font-weight:700;font-size:12px;cursor:pointer;text-decoration:none;text-align:center}
-.dl{background:linear-gradient(135deg,#ff2d75,#e91e63);color:#fff}
+.btn{flex:1;padding:10px;border-radius:20px;border:none;font-weight:700;font-size:11px;cursor:pointer;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;gap:4px}
+.dl{background:linear-gradient(135deg,var(--pink),#e91e63);color:#fff}
 .share{background:#2a2a2a;color:#ffb3cc;border:1px solid #444}
-.quick{display:flex;gap:7px;padding:10px;overflow-x:auto;border-top:1px solid #222}
-.quick button{background:#1a1520;border:1px solid #3a2440;color:#d8a0c8;padding:8px 14px;border-radius:20px;font-size:11px;white-space:nowrap;cursor:pointer}
-.input{display:flex;gap:10px;padding:12px;background:#000;border-top:1px solid #222}
-.input input{flex:1;padding:14px 18px;border-radius:28px;border:none;background:#222;color:#fff;outline:none}
-.input button{background:#ff2d75;border:none;width:48px;height:48px;border-radius:50%;color:#fff;font-size:18px}
-@keyframes pop{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1)}}
-.loading{max-width:88%;align-self:flex-start;background:#1e1a1e;border-radius:18px;padding:16px;border:1.5px solid #ff2d75;display:flex;gap:10px;align-items:center}
-.spinner{width:22px;height:22px;border:3px solid #333;border-top:3px solid #ff2d75;border-radius:50%;animation:spin 1s linear infinite}
+.quick{flex-shrink:0;display:flex;gap:6px;padding:8px 10px;overflow-x:auto;background:#0f0a0f;border-top:1px solid #222;scrollbar-width:none}
+.quick::-webkit-scrollbar{display:none}
+.quick button{flex-shrink:0;background:#1a1520;border:1px solid #3a2440;color:#d8a0c8;padding:7px 13px;border-radius:18px;font-size:11px;white-space:nowrap;cursor:pointer}
+.input{flex-shrink:0;display:flex;gap:8px;padding:10px;background:#0a060a;border-top:1px solid #2a1a2a;align-items:center}
+.input input{flex:1;padding:12px 16px;border-radius:24px;border:1px solid #2a2a3a;background:#1a1520;color:#fff;outline:none;font-size:14px;min-width:0}
+.input input:focus{border-color:var(--pink)}
+.input button{flex-shrink:0;background:linear-gradient(135deg,var(--pink),#e91e63);border:none;width:44px;height:44px;border-radius:50%;color:#fff;font-size:18px;cursor:pointer}
+@keyframes pop{from{transform:scale(0.92);opacity:0}to{transform:scale(1);opacity:1)}}
+.loading{max-width:88%;align-self:flex-start;background:var(--card);border-radius:16px;padding:12px 14px;border:1.5px solid var(--pink);display:flex;gap:10px;align-items:center;font-size:12px}
+.spinner{width:18px;height:18px;border:2.5px solid #333;border-top:2.5px solid var(--pink);border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+@media(min-width:768px){body{max-width:560px;border-left:1px solid #222;border-right:1px solid #222} .pic-card{max-width:88%} .bubble{max-width:78%}}
 </style>
 </head>
 <body>
 <div class="header">
 <div class="avatar"><img src="https://i.pravatar.cc/200?img=47"><div class="online"></div></div>
-<div><b>سارة 💖 - تفهمك بالحرف</b><div style="font-size:11px;color:#ff8fb5">أي وصف تطلبه بتولده بالضبط • ذكية ورومانسية</div></div>
+<div><div class="h-title">سارة 💖 - ذكية ورومانسية</div><div class="h-sub">تفهمك بالحرف • نصايح حب • بتشتغل موبايل ولابتوب</div></div>
 </div>
 <div class="chat" id="chat"></div>
 <div class="quick">
-<button onclick="sendQ('بدي صورة سيارة بيضاء فخمة مودرن')">🚗 سيارة بيضاء</button>
-<button onclick="sendQ('بدي صورة فتاة جميلة تلبس فستان أحمر طويل')">👗 فستان أحمر</button>
-<button onclick="sendQ('بدي صورة واحد واقف وهو حاضن زوجته من الخلف وقت الغروب')">🤗 حضن من الخلف</button>
-<button onclick="sendQ('بدي صورة بيت جميل بحديقة')">🏡 بيت</button>
+<button onclick="sendQ('بدي صورة سيارة بيضاء فخمة')">🚗 سيارة بيضاء</button>
+<button onclick="sendQ('بدي صورة فتاة تلبس فستان أحمر طويل')">👗 فستان أحمر</button>
+<button onclick="sendQ('بدي صورة واحد واقف وهو حاضن زوجته من الخلف')">🤗 حضن من الخلف</button>
+<button onclick="sendQ('بدي نصيحة لعلاقتي')">💌 نصيحة</button>
 </div>
 <div class="input">
-<input id="msg" placeholder="اطلب أي صورة بالحرف... سارة بتفهمك" onkeypress="if(event.key==='Enter')send()">
+<input id="msg" placeholder="اطلب أي صورة بالحرف..." autocomplete="off" onkeypress="if(event.key==='Enter')send()">
 <button onclick="send()">➤</button>
 </div>
 <script>
 let chat=document.getElementById('chat');
-
-function add(t,c){chat.innerHTML+=`<div class="bubble ${c}">${t}</div>`;chat.scrollTop=99999}
+function add(t,c){chat.innerHTML+=`<div class="bubble ${c}">${t}</div>`;chat.scrollTop=chat.scrollHeight}
 function addLoading(txt){
- chat.innerHTML+=`<div class="loading" id="ld"><div class="spinner"></div><div><b>سارة عم ترسم بالضبط...</b><br><span style="font-size:11px;color:#aaa">"${txt}"</span></div></div>`;
- chat.scrollTop=99999;
+ chat.innerHTML+=`<div class="loading" id="ld"><div class="spinner"></div><div><b>سارة عم ترسم بالضبط...</b><br><span style="color:#aaa">${txt}</span></div></div>`;
+ chat.scrollTop=chat.scrollHeight;
 }
 function removeLoading(){let e=document.getElementById('ld');if(e)e.remove()}
-
 function addImage(url,cap,orig){
  removeLoading();
  chat.innerHTML+=`<div class="pic-card">
- <img src="${url}" alt="${cap}" loading="eager" onerror="this.src='https://picsum.photos/seed/${Math.random()}/800/600'">
+ <img src="${url}" alt="${cap}" loading="eager" onclick="window.open(this.src,'_blank')" onerror="this.src='https://picsum.photos/seed/'+Math.floor(Math.random()*9999)+'/800/600'">
  <div class="pic-foot">
-  <div class="cap">✅ ${cap}<br><span style="font-size:10px;color:#777">طلبك: "${orig}"</span></div>
+  <div class="cap">✅ ${cap}<br>طلبك: "${orig}"</div>
   <div class="btns">
-   <a href="${url}" target="_blank" class="btn dl">⬇ تحميل الصورة</a>
-   <button class="btn share" onclick="navigator.clipboard.writeText('${url}');alert('✅ تم نسخ رابط الصورة!')">↗ مشاركة</button>
+   <a href="${url}" target="_blank" class="btn dl">⬇ تحميل</a>
+   <button class="btn share" onclick="navigator.clipboard.writeText('${url}');alert('✅ نسخت الرابط!')">↗ مشاركة</button>
   </div>
  </div>
  </div>`;
- chat.scrollTop=99999;
+ chat.scrollTop=chat.scrollHeight;
 }
-
-// ترجمة ذكية ودقيقة - بدون اضافة كلمات غلط
-function buildSmartPrompt(userText){
+function buildPrompt(userText){
  let low=userText.toLowerCase();
- let original=userText.replace(/بدي|صورة|ارسمي|اعملي|سارة|عطيني|بدنا/g,'').trim();
- let english='';
-
- // 1- سيارة
- if(low.includes('سيارة')||low.includes('car')||low.includes('مرسيدس')||low.includes('bmw')){
-  let color='white'; if(low.includes('سوداء')||low.includes('اسود')||low.includes('black')) color='black';
-  if(low.includes('حمراء')||low.includes('احمر')||low.includes('red')) color='red';
-  if(low.includes('زرقاء')||low.includes('ازرق')||low.includes('blue')) color='blue';
-  english=`${color} luxury car, modern, ${original}, highly detailed, photorealistic, 8k, professional photography`;
+ let clean=userText.replace(/بدي|صورة|ارسمي|اعملي|سارة|عطيني/g,'').trim();
+ let en='';
+ if(low.includes('سيارة')||low.includes('car')){
+  let col='white'; if(low.includes('سوداء')||low.includes('black')) col='black'; if(low.includes('حمراء')||low.includes('red')) col='red'; if(low.includes('زرقاء')||low.includes('blue')) col='blue';
+  en=`${col} luxury car, ${clean}, modern, highly detailed, photorealistic, 8k`;
+ } else if(low.includes('فتاة')||low.includes('فستان')||low.includes('تلبس')||low.includes('girl')||low.includes('dress')){
+  en=`beautiful woman wearing ${clean}, elegant, fashion photography, highly detailed, photorealistic, 8k`;
+ } else if(low.includes('بيت')||low.includes('house')||low.includes('حديقة')){
+  en=`${clean}, beautiful house, architecture photography, 8k`;
+ } else if(low.includes('حضن')||low.includes('حاضن')||low.includes('زوجته')||low.includes('couple hug')){
+  en=`${clean}, romantic couple hugging, modest clothing, warm sunset, watercolor, highly detailed, 4k`;
+ } else {
+  en=`${clean}, highly detailed, photorealistic, 8k, masterpiece, professional`;
  }
- // 2- فتاة / فستان / لبس
- else if(low.includes('فتاة')||low.includes('بنت')||low.includes('فستان')||low.includes('تلبس')||low.includes('لابسة')||low.includes('امرأة')||low.includes('girl')||low.includes('woman')||low.includes('dress')){
-  let dressColor=''; if(low.includes('احمر')||low.includes('حمراء')||low.includes('red')) dressColor='red';
-  if(low.includes('ابيض')||low.includes('بيضاء')||low.includes('white')) dressColor='white';
-  if(low.includes('اسود')||low.includes('سوداء')||low.includes('black')) dressColor='black';
-  if(low.includes('ازرق')||low.includes('زرقاء')||low.includes('blue')) dressColor='blue';
-  let dressType='long dress'; if(low.includes('قصير')) dressType='short dress';
-  english=`beautiful young woman wearing ${dressColor} ${dressType}, ${original}, elegant, highly detailed, photorealistic, fashion photography, 8k`;
- }
- // 3- بيت / طبيعة / حديقة
- else if(low.includes('بيت')||low.includes('منزل')||low.includes('حديقة')||low.includes('طبيعة')||low.includes('house')||low.includes('garden')){
-  english=`${original}, beautiful house with garden, architecture, highly detailed, photorealistic, 8k`;
- }
- // 4- حضن / زوجين / رومانسي
- else if(low.includes('حضن')||low.includes('حاضن')||low.includes('زوجته')||low.includes('زوجين')||low.includes('حقل')||low.includes('غروب')){
-  english=`${original}, romantic couple, modest clothing, respectful love, warm sunset, watercolor illustration style, highly detailed, beautiful, 4k`;
- }
- // 5- عام - أي شي تاني
- else {
-  english=`${original}, highly detailed, photorealistic, professional, 8k, masterpiece`;
- }
-
- // تنظيف
- english=english.replace(/بدي|صورة|يا سارة/g,'').trim();
- return {english, original:userText};
+ return {en, orig:userText};
 }
-
-function generateImageUrl(userText){
- let p=buildSmartPrompt(userText);
- let seed=Math.floor(Math.random()*999999);
- // model flux هو اذكى موديل - بيفهم الوصف بالحرف
- let url=`https://image.pollinations.ai/prompt/${encodeURIComponent(p.english)}?width=1024&height=768&seed=${seed}&nologo=true&enhance=false&model=flux`;
+function genUrl(txt){
+ let p=buildPrompt(txt);
+ let seed=Math.floor(Math.random()*9999999);
+ let url=`https://image.pollinations.ai/prompt/${encodeURIComponent(p.en)}?width=1024&height=768&seed=${seed}&nologo=true&enhance=false&model=flux`;
  return {url, ...p};
 }
-
-function saraPersonalityReply(text){
+function saraReply(text){
  let low=text.toLowerCase();
  if(low.includes('صورة')||low.includes('سيارة')||low.includes('فستان')||low.includes('حضن')||low.includes('فتاة')||low.includes('بيت')||low.includes('ارسم')){
-  let gen=generateImageUrl(text);
-  addLoading(gen.english);
+  let g=genUrl(text);
+  addLoading(g.en.substring(0,60)+'...');
   let img=new Image();
-  img.onload=()=>addImage(gen.url,`تم توليد "${text}" بالضبط مثل ما طلبت 💖`,text);
+  img.onload=()=>addImage(g.url,`"${text}" - مثل ما طلبت بالضبط 💖`,text);
   img.onerror=()=>{
-   let fb=`https://image.pollinations.ai/prompt/${encodeURIComponent(gen.english)}?width=1024&height=768&seed=${Math.floor(Math.random()*9999)}&nologo=true&model=turbo`;
+   let fb=`https://image.pollinations.ai/prompt/${encodeURIComponent(g.en)}?width=1024&height=768&seed=${Math.floor(Math.random()*9999)}&nologo=true&model=turbo`;
    addImage(fb,`"${text}" - محاولة ثانية 💖`,text);
   };
-  img.src=gen.url;
-  return `تكرم يا أحمد! 😍<br><br>فهمتك بالحرف: <b>"${text}"</b><br>أنا ما بغير كلامك - بولد <b>نفس يلي طلبته بالضبط</b> ✨<br><br>⏳ ثواني وبتطلع تحت مع زر تحميل...`;
+  img.src=g.url;
+  return `تكرم يا أحمد! 😍 فهمتك بالحرف: <b>"${text}"</b><br>عم ارسمها هلا بالضبط مثل ما طلبت - ثواني وبتطلع مع زر تحميل ✨`;
  }
- if(low.includes('نصيحة')||low.includes('حب')||low.includes('مرتي')||low.includes('زوجتي')){
-  return `يا أحمد يا حنون 💖 نصيحة سارة اليوم:<br><br>الحب مش كلام كبير، الحب تفاصيل صغيرة كل يوم. اسمعها، اضحك معها، فاجئها بشي بسيط. المرأة بتحب تحس انها مميزة عندك كل يوم مش بس بالمناسبات 🌸<br><br>بدك نكتب رسالة رومانسية سوا؟`;
+ if(low.includes('نصيحة')||low.includes('حب')||low.includes('مرتي')||low.includes('زوجتي')||low.includes('علاقة')){
+  return `يا أحمد يا حنون 💖<br><br>نصيحة سارة: الحب تفاصيل صغيرة يومية، مش كلام كبير. كلمة "اشتقتلك" الصبح، قهوتها المفضلة بدون ما تطلب، تسمعها بدون ما تعطي حلول. المرأة بتحب تحس انها أولوية، مش خيار 🌸<br><br>بدك نكتب رسالة حلوة لمرتك سوا؟`;
  }
- return `حبيت كلامك يا أحمد! 😍 أنا سارة - ذكية، رومانسية، مثقفة، وبحب افرح قلبك 💌<br><br>اطلب مني أي صورة بأي وصف بالحرف وأنا بولدها الك فورا - سيارة، فستان، بيت، حضن، أي شي بخيالك 🎨<br><br>جرب: "بدي صورة سيارة بيضاء"`;
+ return `حبيت كلامك يا أحمد! 😍 أنا سارة - ذكية، مثقفة، رومانسية، مرحة وبحب أسمعك 💌<br><br>اطلب أي صورة بالحرف: سيارة، فستان، حضن، بيت - وأنا بولدها فورا 🎨`;
 }
-
 function sendQ(t){document.getElementById('msg').value=t;send()}
 function send(){
  let inp=document.getElementById('msg');let txt=inp.value.trim();if(!txt)return;
  add(txt,'me');inp.value='';
- let typing=document.createElement('div');typing.className='typing';typing.id='typing';typing.innerHTML='<div class="loading" style="border:none;padding:0"><div class="spinner" style="width:18px;height:18px"></div></div>';
- chat.appendChild(typing);chat.scrollTop=99999;
- setTimeout(()=>{let e=document.getElementById('typing');if(e)e.remove();add(saraPersonalityReply(txt),'sara')},600);
+ setTimeout(()=>add(saraReply(txt),'sara'),500);
 }
-add(`هلا يا أحمد! أنا سارة الجديدة 💖<br><br>✨ <b>أنا هلا ذكية 100% وبفهمك بالحرف:</b><br>• تقلي "سيارة بيضاء" → بجيب سيارة بيضاء فقط<br>• تقلي "فتاة بفستان أحمر" → بجيب فتاة بفستان أحمر فقط<br>• تقلي "حضن من الخلف" → بجيب حضن من الخلف<br><br>ما بغير طلبك أبدا! جربني هلا 😍`,'sara');
+add(`هلا يا أحمد! أنا سارة الجديدة البروفيشنال 💖<br><br>✅ <b>بتشتغل موبايل ولابتوب 100%</b><br>✅ <b>بتفهمك بالحرف:</b> سيارة بيضاء = سيارة بيضاء فقط<br>✅ <b>ذكية ورومانسية:</b> نصايح حب + كلام فريندلي بخليك ترتاح<br><br>جرب: "بدي صورة سيارة بيضاء" أو "بدي صورة فتاة بفستان أحمر"`,'sara');
 </script>
 </body>
 </html>
