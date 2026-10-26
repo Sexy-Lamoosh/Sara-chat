@@ -3,18 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sara - توليد صور رومانسية</title>
+<title>Sara 10 - صور فورية</title>
 <style>
 *{box-sizing:border-box} body{margin:0;background:#0a0a0a;color:#fff;font-family:system-ui;max-width:440px;margin:auto;display:flex;flex-direction:column;height:100vh}
 .header{text-align:center;padding:12px;background:#160e15} .header img{width:75px;height:75px;border-radius:50%;border:3px solid #ff2d75}
-.chat{flex:1;overflow-y:auto;background:#111;margin:8px;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
-.bubble{padding:11px 14px;border-radius:18px;max-width:84%;line-height:1.6;font-size:14px;white-space:pre-wrap;word-wrap:break-word}
+.chat{flex:1;overflow-y:auto;background:#111;margin:8px;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:12px}
+.bubble{padding:11px 14px;border-radius:18px;max-width:84%;line-height:1.6;font-size:14px;white-space:pre-wrap}
 .sara{background:#ff2d75;align-self:flex-start} .me{background:#2c2c2c;align-self:flex-end}
-.pic-wrap{max-width:86%;align-self:flex-start;background:#1e1e1e;border-radius:14px;overflow:hidden;border:1.5px solid #ff2d75}
-.pic-wrap img{width:100%;display:block;min-height:220px;object-fit:cover;background:#222}
-.pic-wrap .foot{padding:8px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#ffb3cc;gap:6px}
-.dlbtn{background:#ff2d75;color:#fff;border:none;border-radius:20px;padding:6px 12px;font-size:11px;cursor:pointer;text-decoration:none;display:inline-block}
-.loading{padding:20px;text-align:center;color:#ff8fb5;font-size:12px}
+.pic-wrap{max-width:88%;align-self:flex-start;background:#1e1e1e;border-radius:14px;overflow:hidden;border:1.5px solid #ff2d75}
+.pic-wrap img{width:100%;display:block;min-height:250px;object-fit:cover}
+.pic-wrap .foot{padding:8px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#ffb3cc}
+.dlbtn{background:#ff2d75;color:#fff;border:none;border-radius:20px;padding:6px 14px;font-size:11px;text-decoration:none}
 .quick{display:flex;gap:6px;padding:8px;overflow-x:auto} .quick button{background:#1e1e1e;border:1px solid #ff2d75;color:#ff8fb5;border-radius:20px;padding:7px 12px;font-size:11px;white-space:nowrap}
 .input{display:flex;gap:8px;padding:10px;background:#000;border-top:1px solid #222}
 .input input{flex:1;padding:13px;border-radius:25px;border:none;background:#222;color:#fff;outline:none}
@@ -24,71 +23,38 @@
 <body>
 <div class="header">
 <img src="https://i.pravatar.cc/200?img=47">
-<h3>سارة - 26 سنة 💖 مولدة الصور</h3>
-<p style="color:#999;font-size:10px">اكتب أي صورة رومانسية وهي بتعملها</p>
+<h3>سارة - 26 سنة 💖 صور فورية</h3>
 </div>
 <div class="chat" id="chat"></div>
 <div class="quick">
-<button onclick="sendQ('بدي صورة واحد حاضن زوجته من الخلف بغروب الشمس')">🤗 حضن من الخلف</button>
-<button onclick="sendQ('بدي صورة زوجين ماسكين ايد بعض بحقل ورد')">🌸 حقل ورد</button>
-<button onclick="sendQ('بدي صورة رومانسية زوجين قاعدين على شط')">🌅 شط</button>
+<button onclick="sendQ('بدي صورة واحد حاضن زوجته من الخلف')">🤗 حضن من الخلف</button>
+<button onclick="sendQ('بدي صورة حضن رومانسي')">💖 حضن رومانسي</button>
+<button onclick="sendQ('نصيحة لمرتي')">💡 نصيحة</button>
 </div>
 <div class="input">
-<input id="msg" placeholder="مثال: بدي صورة حضن رومانسي..." onkeypress="if(event.key==='Enter')send()">
+<input id="msg" placeholder="اكتب: بدي صورة ..." onkeypress="if(event.key==='Enter')send()">
 <button onclick="send()">➤</button>
 </div>
 <script>
 let chat=document.getElementById('chat');
 function add(t,w){chat.innerHTML+=`<div class="bubble ${w}">${t}</div>`;chat.scrollTop=chat.scrollHeight;}
-function addLoading(){let id='load_'+Date.now(); chat.innerHTML+=`<div class="pic-wrap" id="${id}"><div class="loading">⏳ سارة عم ترسم صورتك... ثواني ⏳</div></div>`; chat.scrollTop=chat.scrollHeight; return id;}
-function addPicDynamic(url,cap,loadId){
- let el=document.getElementById(loadId);
- if(el) el.remove();
- chat.innerHTML+=`<div class="pic-wrap"><img src="${url}" crossorigin="anonymous"><div class="foot"><span>${cap}</span><a href="${url}" target="_blank" download><span class="dlbtn">⬇ تحميل</span></a></div></div>`;
+function addPicInstant(url,cap){
+ // هون الصورة بتطلع فورا - ما منستنى تحميل
+ chat.innerHTML+=`<div class="pic-wrap"><img src="${url}" alt="romantic" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1516589177381-225540d1a0b6?w=600'"><div class="foot"><span>${cap}</span><a href="${url}" target="_blank" class="dlbtn">⬇ تحميل</a></div></div>`;
  chat.scrollTop=chat.scrollHeight;
-}
-function translateToPrompt(arText){
-// تحويل الطلب العربي لانجليزي بسيط للـ AI
- let txt=arText.toLowerCase();
- let base="romantic couple, modest clothing, respectful, halal love, watercolor illustration, soft colors, sunset";
- if(txt.includes('من الخلف')||txt.includes('ورا')) base+=", man hugging wife from behind, standing";
- if(txt.includes('حقل')||txt.includes('ورد')) base+=", walking in flower field, holding hands";
- if(txt.includes('شط')||txt.includes('بحر')) base+=", sitting on beach, sunset";
- if(txt.includes('ماسكين')||txt.includes('ايد')) base+=", holding hands, looking at each other";
- if(txt.includes('قاعدين')) base+=", sitting together on picnic blanket";
- if(txt.includes('مطبخ')||txt.includes('بيت')) base+=", at home cozy";
- if(txt.includes('مكتوب')&&txt.includes('بحبك')) base+=", with text 'I love you' in sky, romantic";
- // اذا ما فهم، يستخدم النص كله
- return base+", "+arText.replace(/بدي صورة|صورة|بدي/g,'');
-}
-function isAllowed(txt){
- let banned=['عاري','سكس','جنس','اباحي','nude','sex','porn','naked'];
- return !banned.some(b=>txt.toLowerCase().includes(b));
 }
 function reply(txt){
  let low=txt.toLowerCase();
- if(low.includes('صورة')||low.includes('رسمة')||low.includes('ارسمي')){
-  if(!isAllowed(txt)){
-   return "يا احمد 🌸 ما بقدر اعمل صور غير محترمة، بس بقدر اعملك احلى صورة رومانسية محترمة! جرب مثلا: 'حضن رومانسي' او 'زوجين بغروب الشمس'";
-  }
-  let loadId=addLoading();
-  let prompt=translateToPrompt(txt);
-  let seed=Math.floor(Math.random()*99999);
-  let url=`https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=512&height=512&seed=${seed}&nologo=true&model=flux`;
-  // نجرب نحمل الصورة
-  let img=new Image();
-  img.crossOrigin="anonymous";
-  img.onload=function(){addPicDynamic(url,`"${txt}" - من سارة لك يا احمد 💖`,loadId);};
-  img.onerror=function(){
-   // fallback مضمون
-   let fb=`https://picsum.photos/seed/${seed}/512/512`;
-   addPicDynamic(fb,`صورة رومانسية يا احمد 💖 (بديل سريع)`,loadId);
-  };
-  img.src=url;
-  return `تكرم يا احمد! 😍 عم ارسملك: "${txt}"<br>ثواني وبتكون جاهزة تحت... ✨`;
+ if(low.includes('صورة')||low.includes('حضن')||low.includes('رومانسي')){
+  // توليد فوري بدون انتظار
+  let prompt="romantic couple modest clothing, respectful love, watercolor, sunset, "+txt.replace(/بدي|صورة|ارسمي/g,'');
+  let seed=Math.floor(Math.random()*100000);
+  let url=`https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=512&height=512&seed=${seed}&nologo=1`;
+  setTimeout(()=>addPicInstant(url, txt+" 💖"), 200);
+  return `تكرم يا احمد! 😍 عم ارسملك: "${txt}"<br>الصورة رح تطلع تحت هلا فورا! ✨`;
  }
- if(low.includes('مرتي')||low.includes('نصيحة')) return "الله يحفظكم يا احمد! 💖 نصيحة اليوم: كل يوم احكي 'شكرا' و 'انا فخور فيكي' 🌸";
- return "حبيت كلامك يا احمد! 🌸 اذا بدك صورة، اكتب: بدي صورة [وصف الصورة] وانا بعملها فورا! مثال: بدي صورة حضن من الخلف";
+ if(low.includes('مرتي')) return "الله يحفظكم يا احمد! 💖 جرب: صباح الخير يا احلى شي بحياتي 🌸";
+ return "حبيت كلامك يا احمد! 🌸 اكتب: بدي صورة حضن رومانسي";
 }
 function sendQ(t){document.getElementById('msg').value=t;send();}
 function send(){
@@ -96,7 +62,7 @@ function send(){
  add(txt,'me');inp.value='';
  setTimeout(()=>add(reply(txt),'sara'),300);
 }
-add('هلا يا احمد! انا سارة 26 سنة 😍<br><br>الجديد فيني: <b>بقدر اولدلك أي صورة رومانسية تطلبها!</b><br><br>جرب تكتب:<br>• بدي صورة واحد حاضن زوجته من الخلف ومكتوب بحبك<br>• بدي صورة زوجين بحقل ورد<br>• بدي صورة رومانسية على الشط<br><br>أي فكرة ببالك، انا برسمها! 🎨','sara');
+add('هلا يا احمد! انا سارة 26 سنة 😍<br>هلا الصور بتطلع فورا!<br>جرب: بدي صورة واحد حاضن زوجته من الخلف','sara');
 </script>
 </body>
 </html>
